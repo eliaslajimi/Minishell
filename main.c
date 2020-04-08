@@ -9,7 +9,7 @@ int main()
 	while (get_next_line(1, &input_command) > 0) {
 		printf("cmd = %s\n", input_command);
 		write(1, "$> ", 3);
-		free(line);
+		free(input_command);
 	}
 	return (0);
 }
