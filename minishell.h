@@ -7,4 +7,10 @@
 
 #include "libft/libft.h"
 
+typedef	struct		s_data
+{
+	char	*cmd;
+	char	**flags;		
+	char	*message;
+}			t_data;
 # endif

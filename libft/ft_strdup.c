@@ -27,3 +27,22 @@ char	*ft_strdup(const char *s1)
 	new_s[i] = '\0';
 	return (new_s);
 }
+
+char	*ft_strndup(const char *s1, int n)
+{
+	char	*new_s;
+	int		i;
+
+	i = 0;
+	if (!s1)
+		return (NULL);
+	if (!(new_s = malloc((n < ft_strlen(s1) + 1 ? n : ft_strlen(s1)) * sizeof(char))))
+		return (NULL);
+	while (s1 && *s1 && n)
+	{
+		n--;
+		new_s[i++] = *s1++;
+	}
+	new_s[i] = '\0';
+	return (new_s);
+}

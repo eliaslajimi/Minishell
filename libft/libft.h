@@ -85,5 +85,6 @@ int					get_next_line(int fd, char **line);
 void				ft_free_tab(char **tab, int len);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strrcmp(const char *s1, const char *s2);
-
+char				*ft_strndup(const char *s1, int n);
+int				ft_isspace(char s);
 #endif

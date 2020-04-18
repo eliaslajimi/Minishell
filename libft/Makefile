@@ -42,7 +42,8 @@ SOURCES = ft_putchar.c ft_putstr.c\
 		  ft_lstdelone.c ft_lstclear.c\
 		  ft_lstmap.c get_next_line.c\
 		  ft_free_tab.c ft_strcmp.c\
-		  ft_strrcmp.c
+		  ft_strrcmp.c\
+		ft_isspace.c
 	
 HEADERS = libft.h
 
