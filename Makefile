@@ -2,7 +2,8 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 
-SOURCES = main.c
+SOURCES = main.c\
+	echo.c\
 
 HEADERS = minishell.h
 

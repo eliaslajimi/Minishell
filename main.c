@@ -7,7 +7,7 @@ int	minishell_wrapper(t_data *dtst)
 
 	inputcmd = NULL;
 	init(dtst);	
-	write(1, "$> ", 3);
+	write(1, "$> ", 3);//implementing colors would be fun
 	get_next_line(1, &inputcmd);
 	if (inputcmd)
 	{
@@ -47,18 +47,22 @@ void	retrieve_from_flags(t_data *dtst)
 	int j;
 	char *str;
 
-	k = -1;
+	k = 0;
 	j = 0;
 	str = NULL;
-	while (dtst->flags[++k])
+	while (dtst->flags[k])
+	{
 		if (dtst->flags[k][0] != '-')
 		{
-			j = k;
-			dtst->arg = ft_strdup(dtst->flags[k]);//allocation need to be freed
+			j = k + 1;
+			dtst->arg = ft_strjoin(dtst->arg, " ");//allocation need to be freed
+			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);//allocation need to be freed
 			free(dtst->flags[k]);
 			dtst->flags[k] = NULL;
 		}
-	if (j < k - 1)
+		++k;
+	}
+	if (j != k)
 		error(dtst);
 }
 
@@ -73,8 +77,8 @@ int	command_parsing(char *inputcmd, t_data *dtst)
 	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed
 	dtst->flags = ft_split(inputcmd + i, ' ');//allocation need to be freed
 	retrieve_from_flags(dtst);
-	ft_strtrim(dtst->cmd, " ");//Not working/Fix me
-	ft_strtrim(dtst->arg, " ");
+	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
+	dtst->arg = ft_strtrim(dtst->arg, " ");//Is this allocating memory ??
 	return (0);
 }
 
@@ -96,16 +100,24 @@ int	check_error(t_data *dtst)
 	return (0);
 }
 
+
 int	cmdfunc(t_data *dtst)
 {
 	(void)dtst;
-	//echofunc();
-	//cdfunc();
-	//pwdfunc();
-	//exportfunc();
-	//unsetfunc();
-	//envfunc();
-	//exitfunc();
+	if (!ft_strcmp(dtst->cmd,"echo"))
+		echofunc(dtst);
+	if (!ft_strcmp(dtst->cmd,"cd"))
+		//cdfunc();
+	if (!ft_strcmp(dtst->cmd,"pwd"))
+		//pwdfunc();
+	if (!ft_strcmp(dtst->cmd,"export"))
+		//exportfunc();
+	if (!ft_strcmp(dtst->cmd,"unset"))
+		//unsetfunc();
+	if (!ft_strcmp(dtst->cmd,"env"))
+		//envfunc();
+	if (!ft_strcmp(dtst->cmd,"exit"))
+		//exitfunc();
 	put_command(*dtst);//TO BE DELETED
 	minishell_wrapper(dtst);
 	 return (0);

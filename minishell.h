@@ -23,4 +23,5 @@ int	command_parsing(char *inputcmd, t_data *dtst);
 int	check_error(t_data *dtst);
 int	cmdfunc(t_data *dtst);
 int	init(t_data *dtst);
+int	echofunc(t_data *dtst);
 # endif
