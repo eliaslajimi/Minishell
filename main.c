@@ -4,10 +4,20 @@
 int	minishell_wrapper(t_data *dtst)
 {
 	char *inputcmd;
-
-	inputcmd = NULL;
+//FOR FUN
+//-========================================
+	char *buf;
+	char *username;
+	int color =90 +  rand() % 6;
+	username = ft_calloc(1000,1);
+	buf = NULL;
+	!getlogin_r(username, 1000)? 
+	printf("\033[0;%dm%s\033[0m", color, username) : (void)dtst;
+	fflush(stdout);
 	init(dtst);	
-	write(1, "$> ", 3);//implementing colors would be fun
+//=============================================
+	inputcmd = NULL;
+	write(1, "$> ", 3);
 	get_next_line(1, &inputcmd);
 	if (!ft_strcmp(inputcmd, ""))
 		minishell_wrapper(dtst);
