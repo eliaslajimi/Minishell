@@ -9,6 +9,8 @@ int	minishell_wrapper(t_data *dtst)
 	init(dtst);	
 	write(1, "$> ", 3);//implementing colors would be fun
 	get_next_line(1, &inputcmd);
+	if (!ft_strcmp(inputcmd, ""))
+		minishell_wrapper(dtst);
 	if (inputcmd)
 	{
 		command_parsing(inputcmd, dtst);
@@ -107,9 +109,9 @@ int	cmdfunc(t_data *dtst)
 	if (!ft_strcmp(dtst->cmd,"echo"))
 		echofunc(dtst);
 	if (!ft_strcmp(dtst->cmd,"cd"))
-		//cdfunc();
+		cdfunc(dtst);//Done
 	if (!ft_strcmp(dtst->cmd,"pwd"))
-		//pwdfunc();
+		pwdfunc(dtst);//Done
 	if (!ft_strcmp(dtst->cmd,"export"))
 		//exportfunc();
 	if (!ft_strcmp(dtst->cmd,"unset"))
@@ -123,7 +125,6 @@ int	cmdfunc(t_data *dtst)
 	 return (0);
 }
 
-//BUG: segfault with repeted "enter"
 int	init(t_data *dtst)
 {
 	dtst->cmd = ft_calloc(1,1);

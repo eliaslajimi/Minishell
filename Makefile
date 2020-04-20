@@ -4,6 +4,8 @@ NAME = minishell
 
 SOURCES = main.c\
 	echo.c\
+	cd.c\
+	pwd.c
 
 HEADERS = minishell.h
 

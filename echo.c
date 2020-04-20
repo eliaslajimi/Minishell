@@ -2,8 +2,8 @@
 
 int	echofunc(t_data *dtst)
 {
-	dtst->arg = ft_strtrim(dtst->arg,"\"");
+	dtst->arg = ft_strtrim(dtst->arg,"\"");//allocation ?
 	write(1, dtst->arg, ft_strlen(dtst->arg));	
-	write(1, "\n", 1);
+	!dtst->flags[0] ? write(1, "\n", 1) : (void)dtst;
 	return (0);
 }

@@ -9,9 +9,9 @@
 
 typedef	struct		s_data
 {
-	char	*cmd;
-	char	**flags;		
-	char	*arg;
+	char		*cmd;
+	char		**flags;		
+	char		*arg;
 }			t_data;
 
 
@@ -24,4 +24,6 @@ int	check_error(t_data *dtst);
 int	cmdfunc(t_data *dtst);
 int	init(t_data *dtst);
 int	echofunc(t_data *dtst);
+int	cdfunc(t_data *dtst);
+int	pwdfunc(t_data *dtst);
 # endif
