@@ -45,20 +45,22 @@ void	put_command(t_data dtst)//TO BE DELETED
 	int i;
 	
 	i = -1;
-	printf("\n===================\n");
-	printf("this is your cmd: [\033[0;31m%s\033[0m]\n", dtst.cmd);	
+	char *red = "[\033[0;31m";
+	char *reset = "\033[0m]";
+	printf("===================\n");
+	printf("this is your cmd: %s%s%s\n",red, dtst.cmd, reset);	
 	while(dtst.flags[++i])
-		printf("this is your flag n%d: [\033[0;31m%s\033[0m]\n", i+1, dtst.flags[i]);
-	printf("this is your argument: [\033[0;31m%s\033[0m]\n", dtst.arg);
+		printf("this is your flag n%d: %s%s%s\n", i+1, red, dtst.flags[i], reset);
+	printf("this is your argument: %s%s%s\n", red, dtst.arg, reset);
 	if (dtst.dir == 0)
-		printf("this is your redirection: [%s]\n", "");
+		printf("this is your redirection: %s%s%s\n",red,  "", reset);
 	if (dtst.dir == 1)
-		printf("this is your redirection: [%s]\n", "<");
+		printf("this is your redirection: %s%s%s\n", red,"<", reset);
 	if (dtst.dir == 2)
-		printf("this is your redirection: [%s]\n", ">");
+		printf("this is your redirection: %s%s%s\n",red, ">", reset);
 	if (dtst.dir == 3)
-		printf("this is your redirection: [%s]\n", ">>");
-	printf("this is your file: [%s]", dtst.file);
+		printf("this is your redirection: %s%s%s\n",red, ">>",reset);
+	printf("this is your file: %s%s%s",red, dtst.file, reset);
 	printf("\n===================\n");
 	fflush(stdout);
 }
@@ -74,7 +76,6 @@ void	get_direc(t_data *dtst, int k)
 		dtst->dir = 3;
 	else
 		error(dtst);
-	printf("this is your dir: %d", dtst->dir);
 }
 
 void	retrieve_from_flags(t_data *dtst)
