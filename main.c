@@ -50,7 +50,31 @@ void	put_command(t_data dtst)//TO BE DELETED
 	while(dtst.flags[++i])
 		printf("this is your flag n%d: [\033[0;31m%s\033[0m]\n", i+1, dtst.flags[i]);
 	printf("this is your argument: [\033[0;31m%s\033[0m]\n", dtst.arg);
+	if (dtst.dir == 0)
+		printf("this is your redirection: [%s]\n", "");
+	if (dtst.dir == 1)
+		printf("this is your redirection: [%s]\n", "<");
+	if (dtst.dir == 2)
+		printf("this is your redirection: [%s]\n", ">");
+	if (dtst.dir == 3)
+		printf("this is your redirection: [%s]\n", ">>");
+	printf("this is your file: [%s]", dtst.file);
 	printf("\n===================\n");
+	fflush(stdout);
+}
+
+void	get_direc(t_data *dtst, int k)
+{
+	dtst->flags[k] = ft_strtrim(dtst->flags[k], " ");	
+	if (!ft_strcmp(dtst->flags[k], "<"))
+		dtst->dir = 1;
+	else if (!ft_strcmp(dtst->flags[k], ">"))
+		dtst->dir = 2;
+	else if (!ft_strcmp(dtst->flags[k], ">>"))
+		dtst->dir = 3;
+	else
+		error(dtst);
+	printf("this is your dir: %d", dtst->dir);
 }
 
 void	retrieve_from_flags(t_data *dtst)
@@ -64,7 +88,9 @@ void	retrieve_from_flags(t_data *dtst)
 	str = NULL;
 	while (dtst->flags[k])
 	{
-		if (dtst->flags[k][0] != '-')
+		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
+			get_direc(dtst, k);
+		else if (dtst->flags[k][0] != '-' && !dtst->dir)
 		{
 			j = k + 1;
 			dtst->arg = ft_strjoin(dtst->arg, " ");//allocation need to be freed
@@ -72,6 +98,8 @@ void	retrieve_from_flags(t_data *dtst)
 			free(dtst->flags[k]);
 			dtst->flags[k] = NULL;
 		}
+		else 
+			dtst->file = ft_strtrim(dtst->flags[k], " ");
 		++k;
 	}
 	if (j != k)
@@ -139,6 +167,8 @@ int	init(t_data *dtst)
 {
 	dtst->cmd = ft_calloc(1,1);
 	dtst->arg = ft_calloc(1,1);
+	dtst->file = ft_calloc(1,1);
+	dtst->dir = 0;
 	return (0);
 }
 

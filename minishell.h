@@ -12,6 +12,8 @@ typedef	struct		s_data
 	char		*cmd;
 	char		**flags;		
 	char		*arg;
+	int		dir;
+	char		*file;
 }			t_data;
 
 
