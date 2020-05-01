@@ -165,7 +165,7 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd, "env"))
 	{
-		envfunc(dtst, 1);
+		envfunc(dtst, 1);//Done
 	}
 	else	if (!ft_strcmp(dtst->cmd,"exit"))
 	{
