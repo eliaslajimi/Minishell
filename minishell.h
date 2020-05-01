@@ -14,6 +14,7 @@ typedef	struct		s_data
 	char		*arg;
 	int		dir;
 	char		*file;
+	t_list		*env_lst;
 }			t_data;
 
 
@@ -28,4 +29,8 @@ int	init(t_data *dtst);
 int	echofunc(t_data *dtst);
 int	cdfunc(t_data *dtst);
 int	pwdfunc(t_data *dtst);
+
+t_list	*get_env_var(char **envp);
+void	envfunc(t_data *dtst, int fd);
+
 # endif

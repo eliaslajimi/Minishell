@@ -132,7 +132,7 @@ int	check_error(t_data *dtst)
 	 !ft_strcmp(dtst->cmd, "export") || !ft_strcmp(dtst->cmd, "unset") ||
 	!ft_strcmp(dtst->cmd, "exit")) && dtst->flags[0])
 		error(dtst);
-	if (!ft_strcmp(dtst->cmd, "env") && (dtst->flags[0] || dtst->arg))	
+	if (!ft_strcmp(dtst->cmd, "env") && (dtst->flags[0]))// || dtst->arg)) //dtst-arg pas conclu par nul, du coup on rentre d'office dans error
 		error(dtst);
 	if (ft_strcmp(dtst->cmd, "echo") && ft_strcmp(dtst->cmd, "cd")  && ft_strcmp(dtst->cmd, "pwd") && 
 		ft_strcmp(dtst->cmd, "export") && ft_strcmp(dtst->cmd, "unset") && ft_strcmp(dtst->cmd, "env")
@@ -147,18 +147,30 @@ int	cmdfunc(t_data *dtst)
 	(void)dtst;
 	if (!ft_strcmp(dtst->cmd,"echo"))
 		echofunc(dtst);
-	if (!ft_strcmp(dtst->cmd,"cd"))
+	else if (!ft_strcmp(dtst->cmd,"cd"))
+	{
 		cdfunc(dtst);//Done
-	if (!ft_strcmp(dtst->cmd,"pwd"))
+	}
+	else if (!ft_strcmp(dtst->cmd,"pwd"))
+	{
 		pwdfunc(dtst);//Done
-	if (!ft_strcmp(dtst->cmd,"export"))
+	}
+	else if (!ft_strcmp(dtst->cmd,"export"))
+	{
 		//exportfunc();
-	if (!ft_strcmp(dtst->cmd,"unset"))
+	}
+	else if (!ft_strcmp(dtst->cmd,"unset"))
+	{
 		//unsetfunc();
-	if (!ft_strcmp(dtst->cmd,"env"))
-		//envfunc();
-	if (!ft_strcmp(dtst->cmd,"exit"))
+	}
+	else if (!ft_strcmp(dtst->cmd, "env"))
+	{
+		envfunc(dtst, 1);
+	}
+	else	if (!ft_strcmp(dtst->cmd,"exit"))
+	{
 		//exitfunc();
+	}
 	put_command(*dtst);//TO BE DELETED
 	minishell_wrapper(dtst);
 	 return (0);
@@ -173,9 +185,12 @@ int	init(t_data *dtst)
 	return (0);
 }
 
-int	main()
+int	main(int argc, char **argv, char **envp)
 {
+	if (argc != 1)
+		printf("%s\n", argv[0]);
 	t_data	dtst;
+	dtst.env_lst = get_env_var(envp);
 	minishell_wrapper(&dtst);
 	return (0);
 }
