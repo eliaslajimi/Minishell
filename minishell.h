@@ -15,6 +15,7 @@ typedef	struct		s_data
 	int		dir;
 	char		*file;
 	t_list		*env_lst;
+	char		**split_cmd;
 }			t_data;
 
 

@@ -3,6 +3,7 @@
 //Recursive Function seems more suitable
 int	minishell_wrapper(t_data *dtst)
 {
+	int	i;
 	char *inputcmd;
 //FOR FUN
 //-========================================
@@ -17,16 +18,34 @@ int	minishell_wrapper(t_data *dtst)
 	init(dtst);	
 //=============================================
 	inputcmd = NULL;
+	i = 0;
 	write(1, "$> ", 3);
 	get_next_line(1, &inputcmd);
 	if ((inputcmd = ft_strtrim(inputcmd, " ")) && !ft_strcmp(inputcmd, ""))
 		minishell_wrapper(dtst);
-	if (inputcmd)
+/*	if (inputcmd)
 	{
 		command_parsing(inputcmd, dtst);
 		free(inputcmd);	
 		check_error(dtst);
 		cmdfunc(dtst);
+	}
+*/
+
+	dtst->split_cmd = ft_split(inputcmd, ';');
+	while (dtst->split_cmd[i])
+	{
+		inputcmd = ft_strtrim(dtst->split_cmd[i], " ");
+		command_parsing(inputcmd, dtst);
+		free(inputcmd);
+		check_error(dtst);
+		cmdfunc(dtst);
+		i++;
+		if (dtst->split_cmd[i] == NULL)
+		{
+			ft_free_tab(dtst->split_cmd);
+			minishell_wrapper(dtst);
+		}
 	}
 	return (0);
 }
@@ -167,13 +186,13 @@ int	cmdfunc(t_data *dtst)
 	{
 		envfunc(dtst, 1);//Done
 	}
-	else	if (!ft_strcmp(dtst->cmd,"exit"))
+	else if (!ft_strcmp(dtst->cmd,"exit"))
 	{
 		//exitfunc();
 	}
 	put_command(*dtst);//TO BE DELETED
-	minishell_wrapper(dtst);
-	 return (0);
+//	minishell_wrapper(dtst);
+	return (0);
 }
 
 int	init(t_data *dtst)
