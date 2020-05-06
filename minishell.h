@@ -7,6 +7,11 @@
 
 #include "libft/libft.h"
 
+#define APPEND (O_RDWR | O_APPEND | O_CREAT)
+#define OUTPUT (O_RDWR | O_RDONLY)
+#define INPUT (O_RDWR | O_TRUNC | O_CREAT)
+
+
 typedef	struct		s_data
 {
 	char		*cmd;
