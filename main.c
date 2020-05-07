@@ -84,54 +84,6 @@ void	put_command(t_data dtst)//TO BE DELETED
 	fflush(stdout);
 }
 
-//void	get_direc(t_data *dtst, int k)
-//{
-//	dtst->flags[k] = ft_strtrim(dtst->flags[k], " ");	
-//	if (!ft_strcmp(dtst->flags[k], "<"))
-//		dtst->dir = 1;
-//	else if (!ft_strcmp(dtst->flags[k], ">"))
-//		dtst->dir = 2;
-//	else if (!ft_strcmp(dtst->flags[k], ">>"))
-//		dtst->dir = 3;
-//	else
-//		error(dtst);
-//}
-
-//void	retrieve_from_flags(t_data *dtst)
-//{
-//	int k;
-//	int j;
-//	char *str;
-//
-//	k = 0;
-//	j = 0;
-//	str = NULL;
-//	while (dtst->flags[k])
-//	{
-//		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
-//			get_direc(dtst, k);
-//		else if (dtst->flags[k][0] != '-' && !dtst->dir)
-//		{
-//			j = k + 1;
-//			dtst->arg = ft_strjoin(dtst->arg, " ");//allocation need to be freed
-//			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);//allocation need to be freed
-//			free(dtst->flags[k]);
-//			dtst->flags[k] = NULL;
-//		}
-//		else 
-//			dtst->file = ft_strtrim(dtst->flags[k], " ");
-//		++k;
-//	}
-//	if (j != k)
-//		error(dtst);
-//}
-
-
-
-
-
-
-//===========================================
 void	get_direc(t_data *dtst, int k)
 {
 	dtst->flags[k] = ft_strtrim(dtst->flags[k], " ");	
@@ -145,22 +97,6 @@ void	get_direc(t_data *dtst, int k)
 		error(dtst);
 }
 
-//int	command_parsing(char *inputcmd, t_data *dtst)
-//{
-//	int i;	
-//	int k;
-//
-//	k = -1;
-//	i = 0;
-//	while(inputcmd[i] && !ft_isspace(inputcmd[i++]));
-//	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed
-//	dtst->flags = ft_split(inputcmd + i, ' ');//allocation need to be freed
-//	retrieve_from_flags(dtst);
-//	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
-//	dtst->arg = ft_strtrim(dtst->arg, " ");//Is this allocating memory ??
-//	return (0);
-//}
-
 void	retrieve_from_flags(t_data *dtst)
 {
 	int k;
@@ -172,6 +108,7 @@ void	retrieve_from_flags(t_data *dtst)
 	str = NULL;
 	while (dtst->flags[k])
 	{
+		printf("this is your flag: %s\n", dtst->flags[k]);
 		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);
@@ -192,7 +129,6 @@ void	retrieve_from_flags(t_data *dtst)
 	}
 }
 
-//===========================================
 int	command_parsing(char *inputcmd, t_data *dtst)
 {
 	int i;	
@@ -267,7 +203,7 @@ int	init(t_data *dtst)
 	dtst->cmd = ft_calloc(1,1);
 	dtst->arg = ft_calloc(1,1);
 	dtst->file = ft_calloc(1,1);
-	dtst->dir = 0;
+	dtst->dir = -1;
 	return (0);
 }
 
