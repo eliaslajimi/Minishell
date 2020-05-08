@@ -20,7 +20,6 @@ int	fork_cmd(t_data *dtst)
 	else if (pid == 0)
 	{
 		//child process
-		ft_putstr("Child process\n");
 		execve(dtst->abs_path_cmd, new_argv, new_envp);
 	}
 	else
