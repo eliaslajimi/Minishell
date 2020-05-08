@@ -31,7 +31,6 @@ int	minishell_wrapper(t_data *dtst)
 		cmdfunc(dtst);
 	}
 */
-
 	dtst->split_cmd = ft_split(inputcmd, ';');
 	while (dtst->split_cmd[i])
 	{
@@ -158,7 +157,7 @@ int	check_error(t_data *dtst)
 		error(dtst);
 	if (ft_strcmp(dtst->cmd, "echo") && ft_strcmp(dtst->cmd, "cd")  && ft_strcmp(dtst->cmd, "pwd") && 
 		ft_strcmp(dtst->cmd, "export") && ft_strcmp(dtst->cmd, "unset") && ft_strcmp(dtst->cmd, "env")
-		&& ft_strcmp(dtst->cmd, "exit"))
+		&& ft_strcmp(dtst->cmd, "exit") && ft_strcmp(dtst->cmd, "ls"))
 		error(dtst);
 	return (0);
 }
@@ -192,6 +191,12 @@ int	cmdfunc(t_data *dtst)
 	else if (!ft_strcmp(dtst->cmd,"exit"))
 	{
 		//exitfunc();
+	}
+	else if (!(ft_strcmp(dtst->cmd,"ls")))
+	{
+		absolute_path(dtst, "ls");
+		fork_cmd(dtst);
+		printf("abs path : %s\n", dtst->abs_path_cmd);
 	}
 	put_command(*dtst);//TO BE DELETED
 //	minishell_wrapper(dtst);

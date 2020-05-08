@@ -6,7 +6,9 @@ SOURCES = main.c\
 	echo.c\
 	cd.c\
 	pwd.c\
-	env.c
+	env.c\
+	absolute_path.c\
+	fork_cmd.c
 
 HEADERS = minishell.h
 

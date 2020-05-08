@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <signal.h>
 
 #include "libft/libft.h"
 
@@ -21,6 +23,7 @@ typedef	struct		s_data
 	char		*file;
 	t_list		*env_lst;
 	char		**split_cmd;
+	char		*abs_path_cmd;
 }			t_data;
 
 
@@ -38,5 +41,7 @@ int	pwdfunc(t_data *dtst);
 
 t_list	*get_env_var(char **envp);
 void	envfunc(t_data *dtst, int fd);
+void	absolute_path(t_data *dtst, char *cmd);
+int	fork_cmd(t_data *dtst);
 
 # endif
