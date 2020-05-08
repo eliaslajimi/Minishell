@@ -3,11 +3,14 @@
 int	fork_cmd(t_data *dtst)
 {
 	pid_t	pid;
-	int	status;
-	char	*new_argv[] = {"ls", NULL};
-	char	*new_envp[] = {NULL};
+	char	**new_argv;
+	char	**new_envp;
 
-	status = 0;
+	new_argv = malloc(sizeof(char*) * 2);
+	new_envp = malloc(sizeof(char*) * 1);
+	new_argv[0] = ft_strdup(dtst->cmd);
+	new_argv[1] = NULL;
+	new_envp[0] = NULL;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -23,7 +26,8 @@ int	fork_cmd(t_data *dtst)
 	else
 	{
 		//parent process
-		ft_putstr("we gotta wait or smthng \n");
+		waitpid(pid, 0, 0);
+		kill(pid, SIGTERM); //default termination signal
 	}
 	return (0);
 }

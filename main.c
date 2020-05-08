@@ -192,11 +192,10 @@ int	cmdfunc(t_data *dtst)
 	{
 		//exitfunc();
 	}
-	else if (!(ft_strcmp(dtst->cmd,"ls")))
+	else
 	{
-		absolute_path(dtst, "ls");
+		absolute_path(dtst, dtst->cmd);
 		fork_cmd(dtst);
-		printf("abs path : %s\n", dtst->abs_path_cmd);
 	}
 	put_command(*dtst);//TO BE DELETED
 //	minishell_wrapper(dtst);

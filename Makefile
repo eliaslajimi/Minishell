@@ -22,12 +22,12 @@ $(NAME):
 	@echo "Compilation..."
 	@gcc $(FLAGS) $(SOURCES) $(HEADERS) $(LIBFT)
 	@echo "Compilation libft\t\t\033[0;32m[OK]\033[0m"
+	@rm -f $(HEADERS_GCH)
 
 all: $(NAME)
 
 clean:
 	@rm -f $(OBJECT)
-	@rm -f $(HEADERS_GCH)
 	@echo "Cleaning Objects libft\t\t\033[0;32m[OK]\033[0m"
 
 fclean: clean
