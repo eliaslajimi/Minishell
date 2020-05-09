@@ -28,14 +28,16 @@ void	absolute_path(t_data *dtst, char *cmd)
 	i = 0;
 	temp = NULL;
 	tmp = dtst->env_lst;
-	while (dtst->env_lst && ft_strncmp(dtst->env_lst->content, "PATH", 4))
-		dtst->env_lst = dtst->env_lst->next;
-	
+	while (tmp->next && ft_strncmp(tmp->content, "PATH", 4))
+	{
+		tmp = tmp->next;
+	}
 	//if path doesn't exist, we put on an arbitrary one
-	if (!(path = ft_strdup(dtst->env_lst->content)))
+	if (!(path = ft_strdup(tmp->content)))
 	{
 		path = ft_strdup("/bin:/usr/local/bin:/usr/bin:/usr/local/sbin");
 	}
+
 	
 	// let's check if cmd is the absolute path
 	if (cmd[0] != '/' && ft_strncmp(cmd, "./", 2) != 0)
@@ -57,7 +59,7 @@ void	absolute_path(t_data *dtst, char *cmd)
 			bin = temp;
 			ft_strdel(&temp);
 
-			if (file_exists(bin) != 0)
+			if (file_exists(bin))
 			{
 				dtst->abs_path_cmd = ft_strdup(bin);
 				break;

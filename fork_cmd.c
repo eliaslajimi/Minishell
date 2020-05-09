@@ -3,11 +3,9 @@
 int	fork_cmd(t_data *dtst)
 {
 	pid_t	pid;
-	char	**new_argv;
-	char	**new_envp;
+	char	*new_argv[2];
+	char	*new_envp[1];
 
-	new_argv = malloc(sizeof(char*) * 2);
-	new_envp = malloc(sizeof(char*) * 1);
 	new_argv[0] = ft_strdup(dtst->cmd);
 	new_argv[1] = NULL;
 	new_envp[0] = NULL;

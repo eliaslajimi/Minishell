@@ -167,7 +167,9 @@ int	cmdfunc(t_data *dtst)
 {
 	(void)dtst;
 	if (!ft_strcmp(dtst->cmd,"echo"))
+	{
 		echofunc(dtst);
+	}
 	else if (!ft_strcmp(dtst->cmd,"cd"))
 	{
 		cdfunc(dtst);//Done
