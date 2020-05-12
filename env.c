@@ -22,12 +22,18 @@ t_list	*get_env_var(char **envp)
 
 void	envfunc(t_data *dtst, int fd)
 {
+	int count = 0;
+
 	t_list	*tmp;
 
 	tmp = dtst->env_lst;
 	while (tmp->next)
 	{
+		count++;
 		ft_putendl_fd(tmp->content, fd);
 		tmp = tmp->next;
 	}
+	ft_putendl_fd(tmp->content, fd);
+	count++;
+	printf("il y a %d elements\n", count);
 }

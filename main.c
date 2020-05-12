@@ -100,7 +100,7 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd,"export"))
 	{
-		//exportfunc();
+		exportfunc(dtst);
 	}
 	else if (!ft_strcmp(dtst->cmd,"unset"))
 	{

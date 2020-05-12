@@ -45,5 +45,6 @@ t_list	*get_env_var(char **envp);
 void	envfunc(t_data *dtst, int fd);
 void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
+int	exportfunc(t_data *dtst);
 
 # endif
