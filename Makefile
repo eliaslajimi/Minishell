@@ -6,7 +6,8 @@ SOURCES = main.c\
 	echo.c\
 	cd.c\
 	pwd.c\
-	env.c
+	env.c\
+	parsing.c
 
 HEADERS = minishell.h
 

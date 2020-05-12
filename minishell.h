@@ -35,6 +35,7 @@ int	init(t_data *dtst);
 int	echofunc(t_data *dtst);
 int	cdfunc(t_data *dtst);
 int	pwdfunc(t_data *dtst);
+void	get_direc(t_data *dtst, int k);
 
 t_list	*get_env_var(char **envp);
 void	envfunc(t_data *dtst, int fd);
