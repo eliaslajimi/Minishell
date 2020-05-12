@@ -24,6 +24,7 @@ typedef	struct		s_data
 	t_list		*env_lst;
 	char		**split_cmd;
 	char		*abs_path_cmd;
+	int		file_exists;
 }			t_data;
 
 
