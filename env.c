@@ -22,9 +22,12 @@ t_list	*get_env_var(char **envp)
 
 void	envfunc(t_data *dtst, int fd)
 {
-	while (dtst->env_lst->next)
+	t_list	*tmp;
+
+	tmp = dtst->env_lst;
+	while (tmp->next)
 	{
-		ft_putendl_fd(dtst->env_lst->content, fd);
-		dtst->env_lst = dtst->env_lst->next;
+		ft_putendl_fd(tmp->content, fd);
+		tmp = tmp->next;
 	}
 }

@@ -1,0 +1,94 @@
+absolute_path.c:	tmp = dtst->env_lst;
+absolute_path.c:				dtst->abs_path_cmd = ft_strdup(bin);
+absolute_path.c:		dtst->abs_path_cmd = ft_strdup(cmd);
+cd.c:	ret = chdir(dtst->arg);
+echo.c:	dtst->arg = ft_strtrim(dtst->arg,"\"");
+echo.c:	if (!dtst->dir)
+echo.c:		fd = open(dtst->file,  dtst->dir, 0666);
+echo.c:		write(fd, dtst->arg, ft_strlen(dtst->arg));
+echo.c:		if (!dtst->flags[0])
+echo.c:			dtst->arg = ft_strjoin(dtst->arg, "\n");
+echo.c:		write(1, dtst->arg, ft_strlen(dtst->arg));
+echo.c://	dtst->arg = ft_strtrim(dtst->arg,"\"");//allocation ?
+echo.c://	write(1, dtst->arg, ft_strlen(dtst->arg));	
+echo.c://	!dtst->flags[0] ? write(1, "\n", 1) : (void)dtst;
+env.c:	tmp = dtst->env_lst;
+fork_cmd.c:	new_argv[0] = ft_strdup(dtst->cmd);
+fork_cmd.c:		execve(dtst->abs_path_cmd, new_argv, new_envp);
+main.c:	dtst->split_cmd = ft_split(inputcmd, ';');
+main.c:	while (dtst->split_cmd[i])
+main.c:		inputcmd = ft_strtrim(dtst->split_cmd[i], " ");
+main.c:		if (dtst->split_cmd[i] == NULL)
+main.c:			ft_free_tab(dtst->split_cmd);
+main.c:	free(dtst->arg);
+main.c:	free(dtst->cmd);
+main.c://	dtst->flags[k] = ft_strtrim(dtst->flags[k], " ");	
+main.c://	if (!ft_strcmp(dtst->flags[k], "<"))
+main.c://		dtst->dir = OUTPUT;
+main.c://	else if (!ft_strcmp(dtst->flags[k], ">"))
+main.c://		dtst->dir = INPUT;
+main.c://	else if (!ft_strcmp(dtst->flags[k], ">>"))
+main.c://		dtst->dir = APPEND;
+main.c://	while (dtst->flags[k])
+main.c://		printf("this is your flag: %s\n", dtst->flags[k]);
+main.c://		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
+main.c://			dtst->flags[k] = NULL;
+main.c://		else if (dtst->flags[k][0] != '-' && dtst->dir == -1)
+main.c://			dtst->arg = ft_strjoin(dtst->arg, " ");//allocation need to be freed
+main.c://			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);//allocation need to be freed
+main.c://			free(dtst->flags[k]);
+main.c://			dtst->flags[k] = NULL;
+main.c://			dtst->file = ft_strtrim(dtst->flags[k], " ");
+main.c://	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed
+main.c://	dtst->flags = ft_split(inputcmd + i, ' ');//allocation need to be freed
+main.c://	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
+main.c://	dtst->arg = ft_strtrim(dtst->arg, " ");//Is this allocating memory ??
+main.c://	if (!ft_strcmp(dtst->cmd,"echo") && dtst->flags && dtst->flags[0] && ft_strcmp(dtst->flags[0], "-n"))
+main.c://	if ((!ft_strcmp(dtst->cmd,"cd") || !ft_strcmp(dtst->cmd, "pwd") ||
+main.c://	 !ft_strcmp(dtst->cmd, "export") || !ft_strcmp(dtst->cmd, "unset") ||
+main.c://	!ft_strcmp(dtst->cmd, "exit")) && dtst->flags[0])
+main.c://	if (!ft_strcmp(dtst->cmd, "env") && (dtst->flags[0]))// || dtst->arg)) //dtst-arg pas conclu par nul, du coup on rentre d'office dans error
+main.c://	if (ft_strcmp(dtst->cmd, "echo") && ft_strcmp(dtst->cmd, "cd")  && ft_strcmp(dtst->cmd, "pwd") && 
+main.c://		ft_strcmp(dtst->cmd, "export") && ft_strcmp(dtst->cmd, "unset") && ft_strcmp(dtst->cmd, "env")
+main.c://		&& ft_strcmp(dtst->cmd, "exit") && ft_strcmp(dtst->cmd, "ls"))
+main.c:	if (!ft_strcmp(dtst->cmd,"echo"))
+main.c:	else if (!ft_strcmp(dtst->cmd,"cd"))
+main.c:	else if (!ft_strcmp(dtst->cmd,"pwd"))
+main.c:	else if (!ft_strcmp(dtst->cmd,"export"))
+main.c:	else if (!ft_strcmp(dtst->cmd,"unset"))
+main.c:	else if (!ft_strcmp(dtst->cmd, "env"))
+main.c:	else if (!ft_strcmp(dtst->cmd,"exit"))
+main.c:		absolute_path(dtst, dtst->cmd);
+main.c:	dtst->cmd = ft_calloc(1,1);
+main.c:	dtst->arg = ft_calloc(1,1);
+main.c:	dtst->file = ft_calloc(1,1);
+main.c:	dtst->dir = -1;
+parsing.c:	dtst->flags[k] = ft_strtrim(dtst->flags[k], " ");	
+parsing.c:	if (!ft_strcmp(dtst->flags[k], "<"))
+parsing.c:		dtst->dir = OUTPUT;
+parsing.c:	else if (!ft_strcmp(dtst->flags[k], ">"))
+parsing.c:		dtst->dir = INPUT;
+parsing.c:	else if (!ft_strcmp(dtst->flags[k], ">>"))
+parsing.c:		dtst->dir = APPEND;
+parsing.c:	while (dtst->flags[k])
+parsing.c:		printf("this is your dtst->flags: [%s]\n", dtst->flags[k]);
+parsing.c:		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
+parsing.c:			dtst->flags[k] = NULL;
+parsing.c:		else if (dtst->flags[k][0] != '-' &&  dtst->dir == -1)
+parsing.c:			dtst->arg = ft_strjoin(dtst->arg, " ");//allocation need to be freed
+parsing.c:			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);//allocation need to be freed
+parsing.c:			free(dtst->flags[k]);
+parsing.c:			dtst->flags[k] = NULL;
+parsing.c:			dtst->file = ft_strtrim(dtst->flags[k], " ");
+parsing.c:	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed
+parsing.c:	dtst->flags = ft_split(inputcmd + i, ' ');//allocation need to be freed
+parsing.c:	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
+parsing.c:	dtst->arg = ft_strtrim(dtst->arg, " ");//Is this allocating memory ??
+parsing.c:	if (!ft_strcmp(dtst->cmd,"echo") && dtst->flags && dtst->flags[0] && ft_strcmp(dtst->flags[0], "-n"))
+parsing.c:	if ((!ft_strcmp(dtst->cmd,"cd") || !ft_strcmp(dtst->cmd, "pwd") ||
+parsing.c:	 !ft_strcmp(dtst->cmd, "export") || !ft_strcmp(dtst->cmd, "unset") ||
+parsing.c:	!ft_strcmp(dtst->cmd, "exit")) && dtst->flags[0])
+parsing.c:	if (!ft_strcmp(dtst->cmd, "env") && (dtst->flags[0]))// || dtst->arg)) //dtst-arg pas conclu par nul, du coup on rentre d'office dans error
+parsing.c:	if (ft_strcmp(dtst->cmd, "echo") && ft_strcmp(dtst->cmd, "cd")  && ft_strcmp(dtst->cmd, "pwd") && 
+parsing.c:		ft_strcmp(dtst->cmd, "export") && ft_strcmp(dtst->cmd, "unset") && ft_strcmp(dtst->cmd, "env")
+parsing.c:		&& ft_strcmp(dtst->cmd, "exit"))

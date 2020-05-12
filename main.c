@@ -31,7 +31,6 @@ int	minishell_wrapper(t_data *dtst)
 		cmdfunc(dtst);
 	}
 */
-
 	dtst->split_cmd = ft_split(inputcmd, ';');
 	while (dtst->split_cmd[i])
 	{
@@ -87,9 +86,10 @@ void	put_command(t_data dtst)//TO BE DELETED
 
 int	cmdfunc(t_data *dtst)
 {
-	(void)dtst;
 	if (!ft_strcmp(dtst->cmd,"echo"))
+	{
 		echofunc(dtst);
+	}
 	else if (!ft_strcmp(dtst->cmd,"cd"))
 	{
 		cdfunc(dtst);//Done
@@ -114,8 +114,12 @@ int	cmdfunc(t_data *dtst)
 	{
 		//exitfunc();
 	}
-	//put_command(*dtst);//TO BE DELETED
-//	minishell_wrapper(dtst);
+	else
+	{
+		absolute_path(dtst, dtst->cmd);
+		fork_cmd(dtst);
+	}
+	put_command(*dtst);//TO BE DELETED
 	return (0);
 }
 
