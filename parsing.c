@@ -63,16 +63,26 @@ int	command_parsing(char *inputcmd, t_data *dtst)//Parsing
 int	check_error(t_data *dtst)//Parsing
 {
 	if (!ft_strcmp(dtst->cmd,"echo") && dtst->flags && dtst->flags[0] && ft_strcmp(dtst->flags[0], "-n"))
+	{
 		error(dtst);
+	}
 	if ((!ft_strcmp(dtst->cmd,"cd") || !ft_strcmp(dtst->cmd, "pwd") ||
 	 !ft_strcmp(dtst->cmd, "export") || !ft_strcmp(dtst->cmd, "unset") ||
 	!ft_strcmp(dtst->cmd, "exit")) && dtst->flags[0])
+	{
 		error(dtst);
+	
+	}
 	if (!ft_strcmp(dtst->cmd, "env") && (dtst->flags[0]))// || dtst->arg)) //dtst-arg pas conclu par nul, du coup on rentre d'office dans error
+	{
 		error(dtst);
-	if (ft_strcmp(dtst->cmd, "echo") && ft_strcmp(dtst->cmd, "cd")  && ft_strcmp(dtst->cmd, "pwd") && 
+	}
+/*	if (ft_strcmp(dtst->cmd, "echo") && ft_strcmp(dtst->cmd, "cd")  && ft_strcmp(dtst->cmd, "pwd") && 
 		ft_strcmp(dtst->cmd, "export") && ft_strcmp(dtst->cmd, "unset") && ft_strcmp(dtst->cmd, "env")
 		&& ft_strcmp(dtst->cmd, "exit"))
+	{
 		error(dtst);
+	}
+*/
 	return (0);
 }

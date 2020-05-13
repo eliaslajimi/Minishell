@@ -26,6 +26,7 @@ typedef	struct		s_data
 	t_list		*env_lst;
 	char		**split_cmd;
 	char		*abs_path_cmd;
+	int		file_exists;
 }			t_data;
 
 
@@ -46,5 +47,6 @@ t_list	*get_env_var(char **envp);
 void	envfunc(t_data *dtst, int fd);
 void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
+int	exportfunc(t_data *dtst);
 
 # endif

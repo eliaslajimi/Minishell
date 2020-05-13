@@ -59,14 +59,19 @@ void	absolute_path(t_data *dtst, char *cmd)
 			bin = temp;
 			ft_strdel(&temp);
 
-			if (file_exists(bin))
+			if (file_exists(bin) == 1)
 			{
+				dtst->file_exists = 1;
 				dtst->abs_path_cmd = ft_strdup(bin);
 				break;
 			}
 			i++;
 		}
 		ft_free_tab(path_split);
+		if (dtst->file_exists == 0)
+			error(dtst);
+		else
+			dtst->file_exists = 0;
 	}
 	else
 	{
