@@ -18,5 +18,6 @@ int	echofunc(t_data *dtst)//Should we Impliment Quote and variable management?
 		write(1, dtst->arg, ft_strlen(dtst->arg));
 		
 	}
+	dtst->interrodollar = 0;
 	return (0);
 }

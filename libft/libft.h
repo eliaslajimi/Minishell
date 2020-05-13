@@ -87,6 +87,6 @@ int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strrcmp(const char *s1, const char *s2);
 char				*ft_strndup(const char *s1, int n);
 int				ft_isspace(char s);
-int				ft_lstdelnode(t_list **head, char *data);
+void				ft_lstprint(t_list *list);
 
 #endif

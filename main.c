@@ -77,19 +77,17 @@ int	minishell_wrapper(t_data *dtst)
 	get_next_line(1, &inputcmd);
 	if ((inputcmd = ft_strtrim(inputcmd, " ")) && !ft_strcmp(inputcmd, ""))
 		minishell_wrapper(dtst);
-/*	if (inputcmd)
-	{
-		command_parsing(inputcmd, dtst);
-		free(inputcmd);	
-		check_error(dtst);
-		cmdfunc(dtst);
-	}
-*/
 	dtst->split_cmd = ft_split(inputcmd, ';');
 	while (dtst->split_cmd[i])
 	{
 		dtst->split_cmd[i] = ft_strtrim(dtst->split_cmd[i], " ");
 		commandquote(dtst);//this implemants the "quote >" system
+		if (dtst->split_cmd[i][0] == '$')
+		{
+			dtst->dollar_cmd = ft_strdup(split_cmd[i]);
+			ft_strdel(&split_cmd[i]);
+			dtst->split_cmd[i] = ft_strdup(dollarfunc(dtst));	
+		}
 		inputcmd = ft_strtrim(dtst->split_cmd[i], &dtst->quote_type);
 		dtst->quoteresult = ft_strtrim(dtst->quoteresult, &dtst->quote_type);
 		inputcmd = ft_strjoin(inputcmd, dtst->quoteresult);
@@ -114,6 +112,7 @@ void	error(t_data *dtst)
 	write(1, "Command not found\n", 18);
 	free(dtst->arg);
 	free(dtst->cmd);
+	dtst->interrodollar = 1;
 	minishell_wrapper(dtst);
 }
 
@@ -151,11 +150,11 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd,"cd"))
 	{
-		cdfunc(dtst);//Done
+		cdfunc(dtst);
 	}
 	else if (!ft_strcmp(dtst->cmd,"pwd"))
 	{
-		pwdfunc(dtst);//Done
+		pwdfunc(dtst);
 	}
 	else if (!ft_strcmp(dtst->cmd,"export"))
 	{
@@ -167,11 +166,11 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd, "env"))
 	{
-		envfunc(dtst, 1);//Done
+		envfunc(dtst, 1);
 	}
 	else if (!ft_strcmp(dtst->cmd,"exit"))
 	{
-		//exitfunc();
+		exitfunc(dtst);
 	}
 	else
 	{

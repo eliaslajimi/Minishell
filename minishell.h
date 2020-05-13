@@ -27,6 +27,8 @@ typedef	struct		s_data
 	char		**split_cmd;
 	char		*abs_path_cmd;
 	int		file_exists;
+	int		interrodollar;
+	char		*dollar_cmd;
 }			t_data;
 
 
@@ -49,5 +51,7 @@ void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
 int	exportfunc(t_data *dtst);
 void	unsetfunc(t_data *dtst);
+void	exitfunc(t_data *dtst);
+void	dollarfunc(t_data *dtst);
 
 # endif

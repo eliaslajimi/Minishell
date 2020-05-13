@@ -31,4 +31,5 @@ void	envfunc(t_data *dtst, int fd)
 		tmp = tmp->next;
 	}
 	ft_putendl_fd(tmp->content, fd);
+	dtst->interrodollar = 0;
 }

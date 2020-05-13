@@ -33,4 +33,5 @@ void	unsetfunc(t_data *dtst)
 
 	arglen = ft_strlen(dtst->arg);
 	res = ft_lstdelnode(&dtst->env_lst, dtst->arg, arglen);
+	dtst->interrodollar = 0;
 }

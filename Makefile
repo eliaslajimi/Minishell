@@ -11,7 +11,9 @@ SOURCES = main.c\
 	absolute_path.c\
 	fork_cmd.c\
 	export.c\
-	unset.c
+	unset.c\
+	exit.c\
+	dollar.c
 
 HEADERS = minishell.h
 
