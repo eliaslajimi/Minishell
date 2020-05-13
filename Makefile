@@ -10,6 +10,7 @@ SOURCES = main.c\
 	parsing.c\
 	absolute_path.c\
 	fork_cmd.c\
+	export.c\
 
 HEADERS = minishell.h
 
