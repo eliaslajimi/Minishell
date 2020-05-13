@@ -1,5 +1,59 @@
 #include "minishell.h"
 
+int	inputquote(t_data *dtst)
+{
+	char *temp;
+
+	temp = NULL;
+	write(1, "quote> ", ft_strlen("quote> "));
+	get_next_line(1, &temp);
+ 	dtst->quoteresult = ft_strjoin(dtst->quoteresult, temp);
+	if (ft_strchr(temp, dtst->quote_type))
+		return (0);
+	dtst->quoteresult = ft_strjoin(dtst->quoteresult, "\n");
+	inputquote(dtst);
+	return (0);
+}
+
+//This function handles the "quote> " feature in standard bash
+int commandquote(t_data *dtst)
+{
+	int i = 0;
+	dtst->quote_type = 0; //trimmed at the output/nothing else 
+	dtst->quoteresult = NULL;
+	char *splitcmd = dtst->split_cmd[0];
+	int quote_rec = 0;
+
+	while(splitcmd[i])	
+	{
+		if (splitcmd[i] == 96)	
+			if (dtst->quote_type == 0 || dtst->quote_type == 96)
+			{
+				dtst->quote_type = 96;
+				quote_rec++;
+			}
+		if (splitcmd[i] == 39)
+			if (dtst->quote_type == 0 || dtst->quote_type == 39)
+			{
+				dtst->quote_type = 39;
+				quote_rec++;
+			}
+		if (splitcmd[i] == 34)
+			if (dtst->quote_type == 0 || dtst->quote_type == 34)
+			{
+				dtst->quote_type = 34;
+				quote_rec++;
+			}
+		++i;
+	}
+	if (quote_rec%2)
+	{
+		dtst->split_cmd[0] = ft_strtrim(dtst->split_cmd[0], &dtst->quote_type);
+		inputquote(dtst);
+	}
+	return (0);
+}
+
 //Recursive Function seems more suitable
 int	minishell_wrapper(t_data *dtst)
 {
@@ -34,7 +88,12 @@ int	minishell_wrapper(t_data *dtst)
 	dtst->split_cmd = ft_split(inputcmd, ';');
 	while (dtst->split_cmd[i])
 	{
-		inputcmd = ft_strtrim(dtst->split_cmd[i], " ");
+		dtst->split_cmd[i] = ft_strtrim(dtst->split_cmd[i], " ");
+		commandquote(dtst);//this implemants the "quote >" system
+		inputcmd = ft_strtrim(dtst->split_cmd[i], &dtst->quote_type);
+		dtst->quoteresult = ft_strtrim(dtst->quoteresult, &dtst->quote_type);
+		inputcmd = ft_strjoin(inputcmd, dtst->quoteresult);
+		//inputcmd = ft_strtrim(inputcmd, &dtst->quote_type);
 		command_parsing(inputcmd, dtst);
 		free(inputcmd);
 		check_error(dtst);
