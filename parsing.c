@@ -24,7 +24,6 @@ void	retrieve_from_flags(t_data *dtst)//Parsing
 	str = NULL;
 	while (dtst->flags[k])
 	{
-		printf("this is your dtst->flags: [%s]\n", dtst->flags[k]);
 		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);

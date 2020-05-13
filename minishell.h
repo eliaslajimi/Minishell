@@ -16,6 +16,8 @@
 
 typedef	struct		s_data
 {
+	char		quote_type;
+	char		*quoteresult;
 	char		*cmd;
 	char		**flags;		
 	char		*arg;
