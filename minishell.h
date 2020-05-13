@@ -52,6 +52,5 @@ int	fork_cmd(t_data *dtst);
 int	exportfunc(t_data *dtst);
 void	unsetfunc(t_data *dtst);
 void	exitfunc(t_data *dtst);
-void	dollarfunc(t_data *dtst);
 
 # endif

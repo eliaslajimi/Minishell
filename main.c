@@ -82,13 +82,13 @@ int	minishell_wrapper(t_data *dtst)
 	{
 		dtst->split_cmd[i] = ft_strtrim(dtst->split_cmd[i], " ");
 		commandquote(dtst);//this implemants the "quote >" system
-		if (dtst->split_cmd[i][0] == '$')
+/*		if (dtst->split_cmd[i][0] == '$')
 		{
 			dtst->dollar_cmd = ft_strdup(split_cmd[i]);
 			ft_strdel(&split_cmd[i]);
 			dtst->split_cmd[i] = ft_strdup(dollarfunc(dtst));	
 		}
-		inputcmd = ft_strtrim(dtst->split_cmd[i], &dtst->quote_type);
+*/		inputcmd = ft_strtrim(dtst->split_cmd[i], &dtst->quote_type);
 		dtst->quoteresult = ft_strtrim(dtst->quoteresult, &dtst->quote_type);
 		inputcmd = ft_strjoin(inputcmd, dtst->quoteresult);
 		//inputcmd = ft_strtrim(inputcmd, &dtst->quote_type);
