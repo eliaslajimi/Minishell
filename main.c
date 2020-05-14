@@ -92,10 +92,12 @@ int	minishell_wrapper(t_data *dtst)
 		dtst->quoteresult = ft_strtrim(dtst->quoteresult, &dtst->quote_type);
 		inputcmd = ft_strjoin(inputcmd, dtst->quoteresult);
 		//inputcmd = ft_strtrim(inputcmd, &dtst->quote_type);
-		command_parsing(inputcmd, dtst);
-		free(inputcmd);
-		check_error(dtst);
-		cmdfunc(dtst);
+		if (command_parsing(inputcmd, dtst) != -1)
+		{
+			free(inputcmd);
+			check_error(dtst);
+			cmdfunc(dtst);
+		}
 		i++;
 		if (dtst->split_cmd[i] == NULL)
 		{

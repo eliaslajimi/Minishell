@@ -57,8 +57,11 @@ int	command_parsing(char *inputcmd, t_data *dtst)//Parsing
 	if (ft_intheset('$', dtst->cmd))
 	{
 		dtst->cmd = ft_dollar(dtst);
-		if (ft_strcmp(dtst->cmd, NULL) == 0)
-			i = 0;
+		if (dtst->cmd == NULL)
+		{
+			printf("la commmande n'était pas dans la liste d'env\n");
+			return (-1);
+		}
 	}
 	dtst->flags = ft_split(inputcmd + i, ' ');//allocation need to be freed
 	retrieve_from_flags(dtst);
