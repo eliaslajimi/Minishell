@@ -26,12 +26,17 @@ static int	 ft_lstdelnode(t_list **lst, char *data, int datalen)
 	return (0);
 }
 
-void	unsetfunc(t_data *dtst)
+void	unsetfunc(t_data *dtst, char *exportarg)
 {
 	int	res;
 	int	arglen;
+	char	*param;
 
-	arglen = ft_strlen(dtst->arg);
-	res = ft_lstdelnode(&dtst->env_lst, dtst->arg, arglen);
+	if (ft_strcmp(exportarg, "void") == 0)
+		param = dtst->arg;
+	else
+		param = exportarg;
+	arglen = ft_strlen(param);
+	res = ft_lstdelnode(&dtst->env_lst, param, arglen);
 	dtst->interrodollar = 0;
 }

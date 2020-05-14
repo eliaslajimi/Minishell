@@ -50,7 +50,7 @@ int	envfunc(t_data *dtst, int fd);
 void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
 int	exportfunc(t_data *dtst);
-void	unsetfunc(t_data *dtst);
+void	unsetfunc(t_data *dtst, char *exportarg);
 void	exitfunc(t_data *dtst);
 char	*ft_dollar(t_data *dtst);
 

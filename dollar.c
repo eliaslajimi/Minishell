@@ -37,6 +37,7 @@ char	*ft_dollar(t_data *dtst)
 	}
 	else
 	{
+		ft_strdel(&str);
 		return (NULL);
 	}
 }

@@ -11,6 +11,11 @@ int	exportfunc(t_data *dtst)
 	}
 	else if (ft_intheset('=', dtst->arg))
 	{
+		char **split_arg;
+		
+		split_arg = ft_split(dtst->arg, '=');
+		unsetfunc(dtst, split_arg[0]);
+		ft_free_tab(split_arg);
 		while (dtst->arg[i] != '=')
 			i++;
 		if (i == 0)

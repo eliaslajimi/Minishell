@@ -164,7 +164,7 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd,"unset"))
 	{
-		unsetfunc(dtst);
+		unsetfunc(dtst, "void");
 	}
 	else if (!ft_strcmp(dtst->cmd, "env"))
 	{
