@@ -20,7 +20,7 @@ t_list	*get_env_var(char **envp)
 	return (env_lst);
 }
 
-void	envfunc(t_data *dtst, int fd)
+int	envfunc(t_data *dtst, int fd)
 {
 	t_list	*tmp;
 
@@ -31,5 +31,5 @@ void	envfunc(t_data *dtst, int fd)
 		tmp = tmp->next;
 	}
 	ft_putendl_fd(tmp->content, fd);
-	dtst->interrodollar = 0;
+	return(0);
 }

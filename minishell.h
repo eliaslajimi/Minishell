@@ -46,11 +46,12 @@ int	pwdfunc(t_data *dtst);
 void	get_direc(t_data *dtst, int k);
 
 t_list	*get_env_var(char **envp);
-void	envfunc(t_data *dtst, int fd);
+int	envfunc(t_data *dtst, int fd);
 void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
 int	exportfunc(t_data *dtst);
 void	unsetfunc(t_data *dtst);
 void	exitfunc(t_data *dtst);
+char	*ft_dollar(t_data *dtst);
 
 # endif

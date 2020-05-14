@@ -52,11 +52,19 @@ int	command_parsing(char *inputcmd, t_data *dtst)//Parsing
 	k = -1;
 	i = 0;
 	while(inputcmd[i] && !ft_isspace(inputcmd[i++]));
-	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed
+	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed	
+	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
+	if (ft_intheset('$', dtst->cmd))
+	{
+		dtst->cmd = ft_dollar(dtst);
+		if (ft_strcmp(dtst->cmd, NULL) == 0)
+			i = 0;
+	}
 	dtst->flags = ft_split(inputcmd + i, ' ');//allocation need to be freed
 	retrieve_from_flags(dtst);
-	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
 	dtst->arg = ft_strtrim(dtst->arg, " ");//Is this allocating memory ??
+	if (ft_intheset('$', dtst->arg))
+		dtst->arg = ft_dollar(dtst);
 	return (0);
 }
 

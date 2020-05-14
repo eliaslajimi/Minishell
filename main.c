@@ -158,7 +158,7 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd,"export"))
 	{
-		exportfunc(dtst);
+		dtst->interrodollar = exportfunc(dtst);
 	}
 	else if (!ft_strcmp(dtst->cmd,"unset"))
 	{
@@ -166,7 +166,7 @@ int	cmdfunc(t_data *dtst)
 	}
 	else if (!ft_strcmp(dtst->cmd, "env"))
 	{
-		envfunc(dtst, 1);
+		dtst->interrodollar = envfunc(dtst, 1);
 	}
 	else if (!ft_strcmp(dtst->cmd,"exit"))
 	{
