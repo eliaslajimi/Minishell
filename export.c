@@ -14,7 +14,10 @@ int	exportfunc(t_data *dtst)
 		char **split_arg;
 		
 		split_arg = ft_split(dtst->arg, '=');
-		unsetfunc(dtst, split_arg[0]);
+		if (find_node(&dtst->env_lst, split_arg[0]) != NULL)
+		{
+			unsetfunc(dtst, split_arg[0]);
+		}
 		ft_free_tab(split_arg);
 		while (dtst->arg[i] != '=')
 			i++;

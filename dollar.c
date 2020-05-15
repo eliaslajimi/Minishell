@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static char	*find_node(t_list **lst, char *data)
+char	*find_node(t_list **lst, char *data)
 {
 	t_list	*iter;
 
@@ -32,12 +32,10 @@ char	*ft_dollar(t_data *dtst)
 		ft_strdel(&dtst->cmd);
 		dtst->cmd = ft_strdup(str + ft_strlen(cpy));
 		ft_strdel(&cpy);
-		ft_strdel(&str);
 		return (dtst->cmd);
 	}
 	else
 	{
-		ft_strdel(&str);
 		return (NULL);
 	}
 }

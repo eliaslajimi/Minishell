@@ -57,5 +57,6 @@ int	commandquote(t_data *dtst);
 int	inputquote(t_data *dtst);
 char	*trim_quote(t_data *dtst, char *inputcmd);
 char	*removequotes(char **inputcmd);
+char	*find_node(t_list **lst, char *data);
 
 # endif

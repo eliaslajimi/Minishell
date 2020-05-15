@@ -31,12 +31,16 @@ void	unsetfunc(t_data *dtst, char *exportarg)
 	int	res;
 	int	arglen;
 	char	*param;
-
-	if (ft_strcmp(exportarg, "void") == 0)
-		param = dtst->arg;
+	if (ft_strcmp(dtst->arg, "") != 0)
+	{
+		if (ft_strcmp(exportarg, "void") == 0)
+			param = dtst->arg;
+		else
+			param = exportarg;
+		arglen = ft_strlen(param);
+		res = ft_lstdelnode(&dtst->env_lst, param, arglen);
+		dtst->interrodollar = 0;
+	}
 	else
-		param = exportarg;
-	arglen = ft_strlen(param);
-	res = ft_lstdelnode(&dtst->env_lst, param, arglen);
-	dtst->interrodollar = 0;
+		ft_putstr("unset: not enough arguments\n");
 }
