@@ -53,5 +53,9 @@ int	exportfunc(t_data *dtst);
 void	unsetfunc(t_data *dtst, char *exportarg);
 void	exitfunc(t_data *dtst);
 char	*ft_dollar(t_data *dtst);
+int	commandquote(t_data *dtst);
+int	inputquote(t_data *dtst);
+char	*trim_quote(t_data *dtst, char *inputcmd);
+char	*removequotes(char **inputcmd);
 
 # endif

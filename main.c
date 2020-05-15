@@ -1,64 +1,11 @@
 #include "minishell.h"
 
-int	inputquote(t_data *dtst)
-{
-	char *temp;
-
-	temp = NULL;
-	write(1, "quote> ", ft_strlen("quote> "));
-	get_next_line(1, &temp);
- 	dtst->quoteresult = ft_strjoin(dtst->quoteresult, temp);
-	if (ft_strchr(temp, dtst->quote_type))
-		return (0);
-	dtst->quoteresult = ft_strjoin(dtst->quoteresult, "\n");
-	inputquote(dtst);
-	return (0);
-}
-
-//This function handles the "quote> " feature in standard bash
-int commandquote(t_data *dtst)
-{
-	int i = 0;
-	dtst->quote_type = 0; //trimmed at the output/nothing else 
-	dtst->quoteresult = NULL;
-	char *splitcmd = dtst->split_cmd[0];
-	int quote_rec = 0;
-
-	while(splitcmd[i])	
-	{
-		if (splitcmd[i] == 96)	
-			if (dtst->quote_type == 0 || dtst->quote_type == 96)
-			{
-				dtst->quote_type = 96;
-				quote_rec++;
-			}
-		if (splitcmd[i] == 39)
-			if (dtst->quote_type == 0 || dtst->quote_type == 39)
-			{
-				dtst->quote_type = 39;
-				quote_rec++;
-			}
-		if (splitcmd[i] == 34)
-			if (dtst->quote_type == 0 || dtst->quote_type == 34)
-			{
-				dtst->quote_type = 34;
-				quote_rec++;
-			}
-		++i;
-	}
-	if (quote_rec%2)
-	{
-		dtst->split_cmd[0] = ft_strtrim(dtst->split_cmd[0], &dtst->quote_type);
-		inputquote(dtst);
-	}
-	return (0);
-}
-
 //Recursive Function seems more suitable
 int	minishell_wrapper(t_data *dtst)
 {
 	int	i;
 	char *inputcmd;
+
 //FOR FUN
 //-========================================
 	char *buf;
@@ -71,6 +18,7 @@ int	minishell_wrapper(t_data *dtst)
 	fflush(stdout);
 	init(dtst);	
 //=============================================
+
 	inputcmd = NULL;
 	i = 0;
 	write(1, "$> ", 3);
@@ -80,28 +28,27 @@ int	minishell_wrapper(t_data *dtst)
 	dtst->split_cmd = ft_split(inputcmd, ';');
 	while (dtst->split_cmd[i])
 	{
+
+//Clean and format data
+//=============================================
 		dtst->split_cmd[i] = ft_strtrim(dtst->split_cmd[i], " ");
 		commandquote(dtst);//this implemants the "quote >" system
-/*		if (dtst->split_cmd[i][0] == '$')
-		{
-			dtst->dollar_cmd = ft_strdup(split_cmd[i]);
-			ft_strdel(&split_cmd[i]);
-			dtst->split_cmd[i] = ft_strdup(dollarfunc(dtst));	
-		}
-*/		inputcmd = ft_strtrim(dtst->split_cmd[i], &dtst->quote_type);
+		inputcmd = ft_strtrim(dtst->split_cmd[i], &dtst->quote_type);
 		dtst->quoteresult = ft_strtrim(dtst->quoteresult, &dtst->quote_type);
 		inputcmd = ft_strjoin(inputcmd, dtst->quoteresult);
+//=============================================
+
 		//inputcmd = ft_strtrim(inputcmd, &dtst->quote_type);
 		if (command_parsing(inputcmd, dtst) != -1)
 		{
-			free(inputcmd);
+			//free(inputcmd);
 			check_error(dtst);
 			cmdfunc(dtst);
 		}
 		i++;
 		if (dtst->split_cmd[i] == NULL)
 		{
-			ft_free_tab(dtst->split_cmd);
+			//ft_free_tab(dtst->split_cmd);
 			minishell_wrapper(dtst);
 		}
 	}
@@ -179,7 +126,7 @@ int	cmdfunc(t_data *dtst)
 		absolute_path(dtst, dtst->cmd);
 		fork_cmd(dtst);
 	}
-	put_command(*dtst);//TO BE DELETED
+	//put_command(*dtst);//TO BE DELETED
 	return (0);
 }
 
@@ -188,7 +135,7 @@ int	init(t_data *dtst)
 	dtst->cmd = ft_calloc(1,1);
 	dtst->arg = ft_calloc(1,1);
 	dtst->file = ft_calloc(1,1);
-	dtst->dir = -1;
+	dtst->dir = 0;
 	return (0);
 }
 

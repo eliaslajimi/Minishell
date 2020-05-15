@@ -13,7 +13,8 @@ SOURCES = main.c\
 	export.c\
 	unset.c\
 	exit.c\
-	dollar.c
+	dollar.c\
+	quote.c
 
 HEADERS = minishell.h
 

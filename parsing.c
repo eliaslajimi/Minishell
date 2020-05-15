@@ -28,9 +28,8 @@ void	retrieve_from_flags(t_data *dtst)//Parsing
 		{
 			get_direc(dtst, k);
 			dtst->flags[k] = NULL;
-			dtst->dir = 1;	
 		}
-		else if (dtst->flags[k][0] != '-' &&  dtst->dir == -1)
+		else if (dtst->flags[k][0] != '-' &&  !dtst->dir)
 		{
 			j = k + 1;
 			dtst->arg = ft_strjoin(dtst->arg, " ");//allocation need to be freed
@@ -48,9 +47,36 @@ int	command_parsing(char *inputcmd, t_data *dtst)//Parsing
 {
 	int i;	
 	int k;
+	int n;
+	int j;
+	char quote;
+	n = 0;
+	j = 0;
 
 	k = -1;
 	i = 0;
+//	inputcmd = trim_quote(dtst, inputcmd);
+//==========================================
+	while(inputcmd[n])
+	{
+		if (inputcmd[n] != 96 && inputcmd[n] != 39 && inputcmd[n] != 34)
+		{
+			inputcmd[j] = inputcmd[n];
+			j++;
+		}
+		else
+		{
+			quote = inputcmd[n++];
+			while (inputcmd[n] && inputcmd[n] != quote)
+			{
+				inputcmd[j++] = inputcmd[n++];
+			}
+		}
+		n++;
+	}
+	inputcmd[j] = 0;
+//================================================
+//	removequotes(&inputcmd);
 	while(inputcmd[i] && !ft_isspace(inputcmd[i++]));
 	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed	
 	dtst->cmd = ft_strtrim(dtst->cmd, " ");//Is this allocating memory ??
