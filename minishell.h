@@ -13,7 +13,6 @@
 #define OUTPUT (O_RDWR | O_RDONLY)
 #define INPUT (O_RDWR | O_TRUNC | O_CREAT)
 
-
 typedef	struct		s_data
 {
 	char		quote_type;
@@ -31,10 +30,8 @@ typedef	struct		s_data
 	char		*dollar_cmd;
 }			t_data;
 
-
 int	minishell_wrapper(t_data *dtst);
 void	error(t_data *dtst);
-void	put_command(t_data dtst);
 void	retrieve_from_flags(t_data *dtst);
 int	command_parsing(char *inputcmd, t_data *dtst);
 int	check_error(t_data *dtst);
@@ -58,5 +55,10 @@ int	inputquote(t_data *dtst);
 char	*trim_quote(t_data *dtst, char *inputcmd);
 char	*removequotes(char **inputcmd);
 char	*find_node(t_list **lst, char *data);
+char	*multiline(char *inputcmd);
+int	formatdata(t_data *dtst, char *inputcmd);
 
+//to be deleted
+int	deleteme();
+void	put_command(t_data dtst);
 # endif

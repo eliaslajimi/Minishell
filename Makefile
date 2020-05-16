@@ -14,7 +14,10 @@ SOURCES = main.c\
 	unset.c\
 	exit.c\
 	dollar.c\
-	quote.c
+	quote.c\
+	formatdata.c\
+	cmdfunc.c\
+	deleteme.c
 
 HEADERS = minishell.h
 
@@ -31,6 +34,8 @@ $(NAME):
 	@rm -f $(HEADERS_GCH)
 
 all: $(NAME)
+
+run: ./a.out
 
 clean:
 	@rm -f $(OBJECT)
