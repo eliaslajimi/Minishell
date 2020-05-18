@@ -35,6 +35,7 @@ int	init(t_data *dtst)
 	dtst->arg = ft_calloc(1,1);
 	dtst->file = ft_calloc(1,1);
 	dtst->dir = 0;
+	dtst->pipe = 0;
 	return (0);
 }
 

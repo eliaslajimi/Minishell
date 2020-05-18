@@ -5,7 +5,7 @@ int	echofunc(t_data *dtst)//Should we Impliment Quote and variable management?
 	int fd;
 
 	fd = 0;
-	dtst->arg = ft_strtrim(dtst->arg,"\"");
+	printf("\nthis is your arg: ...%s...\n", dtst->arg);
 	if (dtst->dir)
 	{
 		fd = open(dtst->file,  dtst->dir, 0666);

@@ -32,6 +32,8 @@ void	put_command(t_data dtst)//TO BE DELETED
 		printf("this is your redirection: %s%s%s\n",red, ">", reset);
 	if (dtst.dir == 3)
 		printf("this is your redirection: %s%s%s\n",red, ">>",reset);
+	if (dtst.pipe)
+		printf("pipe activated");
 	printf("this is your file: %s%s%s",red, dtst.file, reset);
 	printf("\n===================\n");
 	fflush(stdout);

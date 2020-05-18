@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	*multiline(char *inputcmd)
+char	*removequote(char *inputcmd)
 {
 	int	n;
 	int	j;
@@ -42,6 +42,11 @@ int	inputquote(t_data *dtst)
 	dtst->quoteresult = ft_strjoin(dtst->quoteresult, "\n");
 	inputquote(dtst);
 	return (0);
+}
+
+int	isquote(char c)
+{
+	return (c == 96 || c == 39 || c == 34);
 }
 
 int	conditioncheck(char splitcmd, t_data *dtst)

@@ -28,6 +28,7 @@ typedef	struct		s_data
 	int		file_exists;
 	int		interrodollar;
 	char		*dollar_cmd;
+	int		pipe;
 }			t_data;
 
 int	minishell_wrapper(t_data *dtst);
@@ -55,8 +56,9 @@ int	inputquote(t_data *dtst);
 char	*trim_quote(t_data *dtst, char *inputcmd);
 char	*removequotes(char **inputcmd);
 char	*find_node(t_list **lst, char *data);
-char	*multiline(char *inputcmd);
+char	*removequote(char *inputcmd);
 int	formatdata(t_data *dtst, char *inputcmd);
+int	isquote(char c);
 
 //to be deleted
 int	deleteme();

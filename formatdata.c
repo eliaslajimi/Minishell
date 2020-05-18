@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+//Function will reformated
 int	formatdata(t_data *dtst, char *inputcmd)
 {
 	int i;
@@ -17,13 +18,12 @@ int	formatdata(t_data *dtst, char *inputcmd)
 		dtst->quoteresult = ft_strtrim(dtst->quoteresult,
 		&dtst->quote_type);
 		inputcmd = ft_strjoin(inputcmd, dtst->quoteresult);
-		inputcmd = multiline(inputcmd);
 //=============================================
 
 		if (command_parsing(inputcmd, dtst) != -1)
 		{
 			free(inputcmd);
-			check_error(dtst);
+			//check_error(dtst);
 			cmdfunc(dtst);
 		}
 		i++;
