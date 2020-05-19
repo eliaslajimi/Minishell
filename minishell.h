@@ -59,6 +59,8 @@ char	*find_node(t_list **lst, char *data);
 char	*removequote(char *inputcmd);
 int	formatdata(t_data *dtst, char *inputcmd);
 int	isquote(char c);
+int	creatfile(t_data *dtst, char *file, char *arg);
+int	printcommand(t_data *dtst);
 
 //to be deleted
 int	deleteme();

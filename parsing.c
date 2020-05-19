@@ -19,10 +19,12 @@ void	retrieve_from_flags(t_data *dtst)
 	int k;
 	int j;
 	char *str;
+	int isfile;
 
 	k = 0;
 	j = 0;
 	str = NULL;
+	isfile = 0;
 	while (dtst->flags[k])
 	{
 		printf("\n||%s||\n", dtst->flags[k]);
@@ -30,8 +32,20 @@ void	retrieve_from_flags(t_data *dtst)
 		{
 			get_direc(dtst, k);
 			dtst->flags[k] = NULL;
+			isfile = 1;
 		}
-		else if ((dtst->flags[k][0] != '-' &&  !dtst->dir) ||
+		else if (isfile == 1)
+		{
+			//dtst->file = ft_strtrim(dtst->flags[k], " ");
+			dtst->file = realloc(dtst->file, sizeof(dtst->file) + 1 +
+			sizeof(dtst->flags[k]));
+			dtst->file = ft_strjoin(dtst->file, " ");
+			dtst->file = ft_strjoin(dtst->file, dtst->flags[k]);
+			dtst->file = ft_strtrim(dtst->file," ");
+			isfile = 0;
+			
+		}
+		else if ((dtst->flags[k][0] != '-' &&  isfile == 0) ||
 		isquote(dtst->flags[k][0]))
 		{
 			dtst->flags[k] = removequote(dtst->flags[k]);
@@ -43,12 +57,10 @@ void	retrieve_from_flags(t_data *dtst)
 		}
 		else if (dtst->flags[k][0] == '|')
 			dtst->pipe = 1;
-		else 
-			dtst->file = ft_strtrim(dtst->flags[k], " ");
 		++k;
 	}
+	printf("this is your file unsplit: [%s]", dtst->file);
 }
-
 
 int	command_parsing(char *inputcmd, t_data *dtst)
 {
