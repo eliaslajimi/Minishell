@@ -52,13 +52,21 @@ int	init(t_data *dtst)
 	return (0);
 }
 
+void	sigint_handler()
+{
+	write(1, "\n", 1);
+	deleteme();
+	write(1, "$> ", 3);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	if (argc != 1)
 		ft_putstr(argv[0]);
 	t_data	dtst;
 	dtst.env_lst = get_env_var(envp);
-	dtst.env_shell = find_node(&dtst.env_lst, "SHELL") + 6;
+	dtst.env_shell = find_node(&dtst.env_lst, "SHELL") + 6;	
+	signal(SIGINT, sigint_handler);
 	minishell_wrapper(&dtst);
 	return (0);
 }
