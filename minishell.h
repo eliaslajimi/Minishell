@@ -29,10 +29,11 @@ typedef	struct		s_data
 	int		interrodollar;
 	char		*dollar_cmd;
 	int		pipe;
+	char		*env_shell;
 }			t_data;
 
 int	minishell_wrapper(t_data *dtst);
-void	error(t_data *dtst);
+void	error(t_data *dtst, char *error_msg, int errnum);
 void	retrieve_from_flags(t_data *dtst);
 int	command_parsing(char *inputcmd, t_data *dtst);
 int	check_error(t_data *dtst);
@@ -48,7 +49,7 @@ int	envfunc(t_data *dtst, int fd);
 void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
 int	exportfunc(t_data *dtst);
-void	unsetfunc(t_data *dtst, char *exportarg);
+int	unsetfunc(t_data *dtst, char *exportarg);
 void	exitfunc(t_data *dtst);
 char	*ft_dollar(t_data *dtst);
 int	commandquote(t_data *dtst);

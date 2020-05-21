@@ -56,7 +56,7 @@ int	cmdpath(t_data *dtst,char *path,char *cmd)
 		}
 		ft_free_tab(path_split);
 		if (dtst->file_exists == 0)
-			error(dtst);
+			error(dtst, "command not found\n", 1);
 		else
 			dtst->file_exists = 0;
 	}

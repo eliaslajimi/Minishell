@@ -13,18 +13,16 @@ int	fork_cmd(t_data *dtst)
 	if (pid < 0)
 	{
 		ft_putstr("fork failed\n");
+		ft_strdel(&new_argv[0]);
 		return (0);
 	}
 	else if (pid == 0)
-	{
-		//child process
 		execve(dtst->abs_path_cmd, new_argv, new_envp);
-	}
 	else
 	{
-		//parent process
 		waitpid(pid, 0, 0);
-		kill(pid, SIGTERM); //default termination signal
+		kill(pid, SIGTERM);
 	}
+	ft_strdel(&new_argv[0]);
 	return (0);
 }

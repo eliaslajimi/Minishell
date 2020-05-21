@@ -26,11 +26,12 @@ static int	 ft_lstdelnode(t_list **lst, char *data, int datalen)
 	return (0);
 }
 
-void	unsetfunc(t_data *dtst, char *exportarg)
+int	unsetfunc(t_data *dtst, char *exportarg)
 {
 	int	res;
 	int	arglen;
 	char	*param;
+
 	if (ft_strcmp(dtst->arg, "") != 0)
 	{
 		if (ft_strcmp(exportarg, "void") == 0)
@@ -39,8 +40,6 @@ void	unsetfunc(t_data *dtst, char *exportarg)
 			param = exportarg;
 		arglen = ft_strlen(param);
 		res = ft_lstdelnode(&dtst->env_lst, param, arglen);
-		dtst->interrodollar = 0;
 	}
-	else
-		ft_putstr("unset: not enough arguments\n");
+	return (0);
 }

@@ -10,7 +10,7 @@ void	get_direc(t_data *dtst, int k)
 	else if (!ft_strcmp(dtst->flags[k], ">>"))
 		dtst->dir = APPEND;
 	else
-		error(dtst);
+		error(dtst, "no such file or command\n", 1);
 }
 
 
@@ -69,17 +69,14 @@ int	command_parsing(char *inputcmd, t_data *dtst)
 
 	k = -1;
 	i = 0;
-	while(inputcmd[i] && !ft_isspace(inputcmd[i++]));
+	while (inputcmd[i] && !ft_isspace(inputcmd[i++]));
 	dtst->cmd = ft_strndup(inputcmd, i);//allocation need to be freed
 	dtst->cmd = ft_strtrim(dtst->cmd, " ");//allocating memory
 	if (ft_intheset('$', dtst->cmd))
 	{
 		dtst->cmd = ft_dollar(dtst);
 		if (dtst->cmd == NULL)
-		{
-			printf("la commmande n'était pas dans la liste d'env\n");//printf?
 			return (-1);
-		}
 	}
 	dtst->flags = ft_split(inputcmd + i, ' ');//need to be freed
 	retrieve_from_flags(dtst);
@@ -94,16 +91,16 @@ int	check_error(t_data *dtst)
 	if (!ft_strcmp(dtst->cmd,"echo")
 	&& dtst->flags && dtst->flags[0]
 	&& ft_strcmp(dtst->flags[0], "-n"))
-		error(dtst);
+		error(dtst, "no such file or command\n", 1);
 	if ((!ft_strcmp(dtst->cmd,"cd") ||
 	!ft_strcmp(dtst->cmd, "pwd") ||
 	!ft_strcmp(dtst->cmd, "export") ||
 	!ft_strcmp(dtst->cmd, "unset") ||
 	!ft_strcmp(dtst->cmd, "exit")) &&
 	dtst->flags[0])
-		error(dtst);
+		error(dtst, "no such file or command\n", 1);
 	if (!ft_strcmp(dtst->cmd, "env") &&
 	(dtst->flags[0]))
-		error(dtst);
+		error(dtst, "no such file or command\n", 1);
 	return (0);
 }
