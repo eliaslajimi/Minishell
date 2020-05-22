@@ -24,13 +24,13 @@ void	put_command(t_data dtst)//TO BE DELETED
 	while(dtst.flags[++i])
 		printf("this is your flag n%d: %s%s%s\n", i+1, red, dtst.flags[i], reset);
 	printf("this is your argument: %s%s%s\n", red, dtst.arg, reset);
-	if (dtst.dir == 0)
+	if (dtst.dir == OUTPUT)
 		printf("this is your redirection: %s%s%s\n",red,  "", reset);
-	if (dtst.dir == 1)
+	if (dtst.dir == INPUT)
 		printf("this is your redirection: %s%s%s\n", red,"<", reset);
-	if (dtst.dir == 2)
+	if (dtst.dir == OUTPUT)
 		printf("this is your redirection: %s%s%s\n",red, ">", reset);
-	if (dtst.dir == 3)
+	if (dtst.dir == APPEND)
 		printf("this is your redirection: %s%s%s\n",red, ">>",reset);
 	if (dtst.pipe)
 		printf("pipe activated");

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	echofunc(t_data *dtst)//Should we Impliment Quote and variable management?
+int	echofunc(t_data *dtst)
 {
 	int fd;
 
@@ -12,12 +12,12 @@ int	echofunc(t_data *dtst)//Should we Impliment Quote and variable management?
 //	}
 //	else 
 //	{
-		if (!dtst->flags[0])
-			dtst->arg = ft_strjoin(dtst->arg, "\n");
+	if (!dtst->flags[0])
+		dtst->arg = ft_strjoin(dtst->arg, "\n");
 		//write(1, dtst->arg, ft_strlen(dtst->arg));
 		
 //	}
-	printcommand(dtst);
+	printcommand(dtst);//fd is for the file/mod is append or not
 	dtst->interrodollar = 0;
 	return (0);
 }

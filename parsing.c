@@ -27,7 +27,6 @@ void	retrieve_from_flags(t_data *dtst)
 	isfile = 0;
 	while (dtst->flags[k])
 	{
-		printf("\n||%s||\n", dtst->flags[k]);
 		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);
@@ -59,7 +58,6 @@ void	retrieve_from_flags(t_data *dtst)
 			dtst->pipe = 1;
 		++k;
 	}
-	printf("this is your file unsplit: [%s]", dtst->file);
 }
 
 int	command_parsing(char *inputcmd, t_data *dtst)
