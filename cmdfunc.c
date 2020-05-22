@@ -3,15 +3,15 @@
 int	cmdfunc(t_data *dtst)
 {
 	if (!ft_strcmp(dtst->cmd,"echo"))
-		echofunc(dtst);
+		dtst->interrodollar = echofunc(dtst);
 	else if (!ft_strcmp(dtst->cmd,"cd"))
-		cdfunc(dtst);
+		dtst->interrodollar = cdfunc(dtst);
 	else if (!ft_strcmp(dtst->cmd,"pwd"))
-		pwdfunc(dtst);
+		dtst->interrodollar = pwdfunc(dtst);
 	else if (!ft_strcmp(dtst->cmd,"export"))
 		dtst->interrodollar = exportfunc(dtst);
 	else if (!ft_strcmp(dtst->cmd,"unset"))
-		unsetfunc(dtst, "void");
+		dtst->interrodollar = unsetfunc(dtst, "void");
 	else if (!ft_strcmp(dtst->cmd, "env"))
 		dtst->interrodollar = envfunc(dtst, 1);
 	else if (!ft_strcmp(dtst->cmd,"exit"))

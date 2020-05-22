@@ -7,14 +7,10 @@ char	*find_node(t_list **lst, char *data)
 	iter = *lst;
 	while (iter)
 	{
-		if (ft_strncmp(iter->content, data + 1, ft_strlen(data + 1)) == 0)
-		{
+		if (ft_strncmp(iter->content, data, ft_strlen(data)) == 0)
 			return (iter->content);
-		}
 		else if (iter->next == NULL)
-		{
 			break;
-		}
 		iter = iter->next;
 	}
 	return (NULL);
@@ -25,7 +21,7 @@ char	*ft_dollar(t_data *dtst)
 	char *str;
 	char *cpy;
 
-	str = find_node(&dtst->env_lst, dtst->cmd);
+	str = find_node(&dtst->env_lst, dtst->cmd + 1);
 	if (str != NULL)
 	{
 		cpy = ft_strdup(dtst->cmd);
@@ -35,7 +31,5 @@ char	*ft_dollar(t_data *dtst)
 		return (dtst->cmd);
 	}
 	else
-	{
 		return (NULL);
-	}
 }

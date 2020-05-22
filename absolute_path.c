@@ -3,20 +3,17 @@
 //Havent checked if this thing works
 static int	file_exists(const char *filename)
 {
-	static int ret;
-	
-	(access(filename, F_OK)) != -1 ?//function from unistd, allowed right???
-	ret = -1  : (void)ret;
-	return (ret);
-//	if ((fd = open(filename, O_RDONLY)) > 0)
-//	{
-//		close(fd);
-//		return (1);
-//	}
-//	else
-//	{	
-//		return (0);
-//	}
+	int	fd;
+
+	if ((fd = open(filename, O_RDONLY)) > 0)
+	{
+		close(fd);
+		return (1);
+	}
+	else
+	{	
+		return (0);
+	}
 }
 
 int	cmdpath(t_data *dtst,char *path,char *cmd)
@@ -59,7 +56,7 @@ int	cmdpath(t_data *dtst,char *path,char *cmd)
 		}
 		ft_free_tab(path_split);
 		if (dtst->file_exists == 0)
-			error(dtst);
+			error(dtst, "command not found\n", 1);
 		else
 			dtst->file_exists = 0;
 	}
