@@ -5,7 +5,6 @@ int	creatfile(t_data *dtst,char *file, char *arg)
 	int fd;	
 	
 	fd = 1;
-	printf("these are the files going through [%s]\n", file);
 	if (file)
 		fd = open(file, dtst->dir, 0666);
 	if (arg)
