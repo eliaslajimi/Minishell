@@ -6,11 +6,12 @@ int	pwdfunc(t_data *dtst)
 	char	*currentdir;
 	int	size;
 	
-	(void)dtst;
+	
 	buf = NULL;
 	size = 1000;
+	free(dtst->arg);
 	currentdir = getcwd(buf, size);
-	write(1, currentdir, ft_strlen(currentdir));
-	write(1, "\n", 1);
+	dtst->arg = currentdir;
+	printcommand(dtst);
 	return (0);
 }
