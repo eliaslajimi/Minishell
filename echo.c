@@ -8,6 +8,8 @@ int	echofunc(t_data *dtst)
 	if (!dtst->flags[0])
 		dtst->arg = ft_strjoin(dtst->arg, "\n");
 	printcommand(dtst);
+	free(dtst->arg);
+	dtst->arg = "";
 	dtst->interrodollar = 0;
 	return (0);
 }

@@ -12,6 +12,9 @@ int	pwdfunc(t_data *dtst)
 	free(dtst->arg);
 	currentdir = getcwd(buf, size);
 	dtst->arg = currentdir;
+	dtst->arg = ft_strjoin(dtst->arg, "\n");
 	printcommand(dtst);
+	free(dtst->arg);
+	dtst->arg = "";
 	return (0);
 }
