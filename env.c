@@ -22,14 +22,24 @@ t_list	*get_env_var(char **envp)
 
 int	envfunc(t_data *dtst, int fd)
 {
+	char	*result;
 	t_list	*tmp;
+	(void)fd;
 
 	tmp = dtst->env_lst;
+	result = NULL;
 	while (tmp->next)
 	{
-		ft_putendl_fd(tmp->content, fd);
+		//ft_putendl_fd(tmp->content, fd);
+		result = ft_strjoin(result, tmp->content);
+		result = ft_strjoin(result, "\n");
 		tmp = tmp->next;
 	}
-	ft_putendl_fd(tmp->content, fd);
+	result = ft_strjoin(result, tmp->content);
+	result = ft_strjoin(result, "\n");
+	//ft_putendl_fd(tmp->content, fd);
+	free(dtst->arg);
+	dtst->arg = result;
+	printcommand(dtst);
 	return(0);
 }
