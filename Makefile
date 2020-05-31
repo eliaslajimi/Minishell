@@ -18,7 +18,8 @@ SOURCES = main.c\
 	formatdata.c\
 	cmdfunc.c\
 	deleteme.c\
-	print.c
+	print.c\
+	pipe_commands.c
 
 HEADERS = minishell.h
 

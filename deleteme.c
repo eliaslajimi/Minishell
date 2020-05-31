@@ -33,8 +33,12 @@ void	put_command(t_data dtst)//TO BE DELETED
 	if (dtst.dir == APPEND)
 		printf("this is your redirection: %s%s%s\n",red, ">>",reset);
 	if (dtst.pipe)
-		printf("pipe activated");
-	printf("this is your file: %s%s%s",red, dtst.file, reset);
+		printf("pipe activated\n");
+	if (dtst.r_arg)
+		printf("this is your r_arg: %s\n", dtst.r_arg);
+	if (dtst.r_cmd)
+		printf("this is your r_cmd: %s\n", dtst.r_cmd);
+	printf("this is your file: %s%s%s\n",red, dtst.file, reset);
 	printf("\n===================\n");
 	fflush(stdout);
 }

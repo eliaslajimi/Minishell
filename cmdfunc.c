@@ -15,7 +15,7 @@ int	cmdfunc(t_data *dtst)
 	else if (!ft_strcmp(dtst->cmd, "env"))
 		dtst->interrodollar = envfunc(dtst, 1);
 	else if (!ft_strcmp(dtst->cmd,"exit"))
-		exitfunc(dtst);
+		exit(exitfunc(dtst));
 	else
 	{
 		absolute_path(dtst, dtst->cmd);

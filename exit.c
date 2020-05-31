@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	exitfunc(t_data *dtst)
+int	exitfunc(t_data *dtst)
 {
 	int	status;
 
@@ -8,5 +8,6 @@ void	exitfunc(t_data *dtst)
 	if (dtst->arg != NULL)
 		status = ft_atoi(dtst->arg);
 	//free tout ce qu'il faut
-	exit(status);
+	//exit(status);
+	return (status);
 }

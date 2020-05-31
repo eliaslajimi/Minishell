@@ -27,7 +27,13 @@ void	retrieve_from_flags(t_data *dtst)
 	isfile = 0;
 	while (dtst->flags[k])
 	{
-		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
+		printf("string n%d: %s\n", k, dtst->flags[k]);
+		if (k > 0 && write(1, "testtt", 7) && dtst->pipe == -2)
+		{
+			dtst->pipe = 1;
+			dtst->r_cmd = ft_strtrim(dtst->flags[k], " ");
+		}
+		else if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);
 			dtst->flags[k] = NULL;
@@ -44,20 +50,36 @@ void	retrieve_from_flags(t_data *dtst)
 			isfile = 0;
 			
 		}
-		else if ((dtst->flags[k][0] != '-' &&  isfile == 0) ||
+		else if ((dtst->flags[k][0] != '-'
+		&&  dtst->flags[k][0] != '|' && isfile == 0) ||
 		isquote(dtst->flags[k][0]))
 		{
+			printf("in arg iteration n%d\n", k);
 			dtst->flags[k] = removequote(dtst->flags[k]);
 			j = k + 1;
-			dtst->arg = ft_strjoin(dtst->arg, " ");
-			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);
+			if (dtst->pipe > 0)
+			{
+				dtst->r_arg = ft_strjoin(dtst->r_arg, " ");
+				dtst->r_arg = ft_strjoin(dtst->r_arg, dtst->flags[k]);
+			}
+			else
+			{
+				dtst->arg = ft_strjoin(dtst->arg, " ");
+				dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);
+			}
 			free(dtst->flags[k]);
 			dtst->flags[k] = NULL;
 		}
 		else if (dtst->flags[k][0] == '|')
-			dtst->pipe = 1;
+		{
+			write(1, "1", 1);
+			dtst->pipe = pipe(dtst->filedes);
+			write(1, "2", 1);
+			dtst->pipe = -2;
+		}
 		++k;
 	}
+	put_command(*dtst);
 }
 
 int	command_parsing(char *inputcmd, t_data *dtst)

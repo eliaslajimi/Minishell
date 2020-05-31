@@ -41,14 +41,17 @@ void	error(t_data *dtst, char *error_msg, int errnum)
 	minishell_wrapper(dtst);
 }
 
-
 int	init(t_data *dtst)
 {
 	dtst->cmd = ft_calloc(1,1);
 	dtst->arg = ft_calloc(1,1);
+	dtst->r_arg = ft_calloc(1,1);
+	dtst->r_cmd = ft_calloc(1,1);
 	dtst->file = ft_calloc(1,1);
 	dtst->dir = 0;
-	dtst->pipe = 0;
+	dtst->pipe = -1;
+//	dtst->filedes[0] = 0;
+//	dtst->filedes[1] = 0;
 	return (0);
 }
 

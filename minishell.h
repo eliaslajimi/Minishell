@@ -30,6 +30,9 @@ typedef	struct		s_data
 	char		*dollar_cmd;
 	int		pipe;
 	char		*env_shell;
+	int		filedes[2];
+	char		*r_cmd;
+	char		*r_arg;
 }			t_data;
 
 int	minishell_wrapper(t_data *dtst);
@@ -50,7 +53,7 @@ void	absolute_path(t_data *dtst, char *cmd);
 int	fork_cmd(t_data *dtst);
 int	exportfunc(t_data *dtst);
 int	unsetfunc(t_data *dtst, char *exportarg);
-void	exitfunc(t_data *dtst);
+int	exitfunc(t_data *dtst);
 char	*ft_dollar(t_data *dtst);
 int	commandquote(t_data *dtst);
 int	inputquote(t_data *dtst);
@@ -62,6 +65,7 @@ int	formatdata(t_data *dtst, char *inputcmd);
 int	isquote(char c);
 int	creatfile(t_data *dtst, char *file, char *arg);
 int	printcommand(t_data *dtst);
+int	pipe_commands(t_data *dtst);
 
 //to be deleted
 int	deleteme();
