@@ -23,7 +23,8 @@ int	printcommand(t_data *dtst)
 	i = 0;
 	issingle = 1;
 	files = ft_split(dtst->file, ' ');
-	
+	if (dtst->pipe)
+		pipe(dtst->filedes);
 	while(files[i])
 		i++;
 	(i > 1) ? issingle = 0 : 1;

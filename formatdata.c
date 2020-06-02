@@ -23,7 +23,7 @@ int	formatdata(t_data *dtst, char *inputcmd)
 		if (command_parsing(inputcmd, dtst) != -1)
 		{
 			free(inputcmd);
-			//check_error(dtst);
+			check_error(dtst);
 			cmdfunc(dtst);
 		}
 		i++;

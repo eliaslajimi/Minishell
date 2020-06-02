@@ -14,7 +14,7 @@ void	get_direc(t_data *dtst, int k)
 }
 
 
-void	retrieve_from_flags(t_data *dtst)
+void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring lol
 {
 	int k;
 	int j;
@@ -27,13 +27,20 @@ void	retrieve_from_flags(t_data *dtst)
 	isfile = 0;
 	while (dtst->flags[k])
 	{
-		printf("string n%d: %s\n", k, dtst->flags[k]);
-		if (k > 0 && write(1, "testtt", 7) && dtst->pipe == -2)
+		if (dtst->filedes[0] >= 0)
 		{
-			dtst->pipe = 1;
-			dtst->r_cmd = ft_strtrim(dtst->flags[k], " ");
+			char *temp;
+			dtst->arg = NULL;
+			temp = calloc(1001, sizeof(char));
+			dtst->cmd = ft_strtrim(dtst->flags[k], " ");
+			read(dtst->filedes[0], temp,1000);//dirty padding of 1000/loop fails 
+			dtst->arg = ft_strdup(temp);
+			close(dtst->filedes[1]);
+			close(dtst->filedes[0]);
+			dtst->filedes[1] = -1;
+			dtst->filedes[0] = -1;
 		}
-		else if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
+		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);
 			dtst->flags[k] = NULL;
@@ -41,7 +48,6 @@ void	retrieve_from_flags(t_data *dtst)
 		}
 		else if (isfile == 1)
 		{
-			//dtst->file = ft_strtrim(dtst->flags[k], " ");
 			dtst->file = realloc(dtst->file, sizeof(dtst->file) + 1 +
 			sizeof(dtst->flags[k]));
 			dtst->file = ft_strjoin(dtst->file, " ");
@@ -51,31 +57,25 @@ void	retrieve_from_flags(t_data *dtst)
 			
 		}
 		else if ((dtst->flags[k][0] != '-'
-		&&  dtst->flags[k][0] != '|' && isfile == 0) ||
-		isquote(dtst->flags[k][0]))
+		&&  dtst->flags[k][0] != '|' && isfile == 0 && dtst->pipe < 0) ||
+		(isquote(dtst->flags[k][0]) && dtst->pipe < 0))
 		{
-			printf("in arg iteration n%d\n", k);
 			dtst->flags[k] = removequote(dtst->flags[k]);
 			j = k + 1;
-			if (dtst->pipe > 0)
-			{
-				dtst->r_arg = ft_strjoin(dtst->r_arg, " ");
-				dtst->r_arg = ft_strjoin(dtst->r_arg, dtst->flags[k]);
-			}
-			else
-			{
-				dtst->arg = ft_strjoin(dtst->arg, " ");
-				dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);
-			}
+			dtst->arg = ft_strjoin(dtst->arg, " ");
+			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);
 			free(dtst->flags[k]);
 			dtst->flags[k] = NULL;
 		}
 		else if (dtst->flags[k][0] == '|')
 		{
-			write(1, "1", 1);
-			dtst->pipe = pipe(dtst->filedes);
-			write(1, "2", 1);
-			dtst->pipe = -2;
+			dtst->pipe = 1;
+			dtst->arg = ft_strtrim(dtst->arg, " ");	//formating data
+			if (ft_intheset('$', dtst->arg))	//formating data
+				dtst->arg = ft_dollar(dtst);	//formating data
+			check_error(dtst);
+			cmdfunc(dtst);
+			printf("this is the one I want to see %d, %d\n", dtst->pipe, dtst->filedes[0]);	
 		}
 		++k;
 	}
@@ -100,9 +100,9 @@ int	command_parsing(char *inputcmd, t_data *dtst)
 	}
 	dtst->flags = ft_split(inputcmd + i, ' ');//need to be freed
 	retrieve_from_flags(dtst);
-	dtst->arg = ft_strtrim(dtst->arg, " ");//allocating memory ??
-	if (ft_intheset('$', dtst->arg))
-		dtst->arg = ft_dollar(dtst);
+	dtst->arg = ft_strtrim(dtst->arg, " ");	//formating data
+	if (ft_intheset('$', dtst->arg))	//formating data
+		dtst->arg = ft_dollar(dtst);	//formating data
 	return (0);
 }
 

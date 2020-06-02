@@ -12,6 +12,7 @@ int	deleteme()
 	fflush(stdout);
 	return (0);
 }
+
 void	put_command(t_data dtst)//TO BE DELETED
 {
 	int i;

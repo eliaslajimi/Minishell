@@ -50,8 +50,8 @@ int	init(t_data *dtst)
 	dtst->file = ft_calloc(1,1);
 	dtst->dir = 0;
 	dtst->pipe = -1;
-//	dtst->filedes[0] = 0;
-//	dtst->filedes[1] = 0;
+	dtst->filedes[0] = -1;
+	dtst->filedes[1] = -1;
 	return (0);
 }
 
