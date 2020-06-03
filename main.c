@@ -30,7 +30,7 @@ void	error(t_data *dtst, char *error_msg, int errnum)
 	put_command(*dtst);//TO BE DELETED
 	write(1, dtst->env_shell, ft_strlen(dtst->env_shell));
 	write(1, ": ", 2);
-	if (errnum == 1 || errnum == 3) // probleme de commande//SOLVED?
+	if (errnum == 1 || errnum == 3)
 	{
 		write(1, dtst->cmd, ft_strlen(dtst->cmd));
 		write(1, ": ", 2);
@@ -40,7 +40,6 @@ void	error(t_data *dtst, char *error_msg, int errnum)
 		write(1, dtst->arg, ft_strlen(dtst->arg));
 		write(1, ": ", 2);
 	}
-	// probleme d'argument///SOLVED ?
 	write(1, error_msg, ft_strlen(error_msg));
 	ft_strdel(&dtst->arg);
 	ft_strdel(&dtst->cmd);
