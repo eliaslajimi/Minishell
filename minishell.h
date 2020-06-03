@@ -66,6 +66,7 @@ int	isquote(char c);
 int	creatfile(t_data *dtst, char *file, char *arg);
 int	printcommand(t_data *dtst);
 int	pipe_commands(t_data *dtst);
+char	*dollar_swap(char *inputcmd, t_data *dtst);
 
 //to be deleted
 int	deleteme();

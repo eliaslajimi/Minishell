@@ -2,6 +2,7 @@
 
 int	minishell_wrapper(t_data *dtst)
 {
+	char	*tmp;
 	char	*inputcmd;
 
 	deleteme();//TO BE DELETED
@@ -10,6 +11,12 @@ int	minishell_wrapper(t_data *dtst)
 	inputcmd = NULL;
 	write(1, "$> ", 3);
 	get_next_line(1, &inputcmd);
+	tmp = dollar_swap(inputcmd, dtst);
+	ft_strdel(&inputcmd);
+	inputcmd = ft_strdup(tmp);
+	ft_strdel(&tmp);
+
+
 	if ((inputcmd = ft_strtrim(inputcmd, " "))
 	&& !ft_strcmp(inputcmd, ""))
 		minishell_wrapper(dtst);

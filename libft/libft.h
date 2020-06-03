@@ -88,5 +88,6 @@ int				ft_strrcmp(const char *s1, const char *s2);
 char				*ft_strndup(const char *s1, int n);
 int				ft_isspace(char s);
 void				ft_lstprint(t_list *list);
+char				*ft_strjoin_space(char *s1, char *s2, int space);
 
 #endif
