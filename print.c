@@ -7,7 +7,7 @@ int	creatfile(t_data *dtst,char *file, char *arg)
 	fd = 1;
 	if (file)
 		fd = open(file, dtst->dir, 0666);
-	else if (dtst->pipe > 0)
+	else if (!file && dtst->pipe > 0)
 		fd = dtst->filedes[1];
 	if (arg)
 		write(fd, arg, ft_strlen(arg));

@@ -14,7 +14,7 @@ void	get_direc(t_data *dtst, int k)
 }
 
 
-void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring lol
+void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring
 {
 	int k;
 	int j;
@@ -27,19 +27,18 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring lol
 	isfile = 0;
 	while (dtst->flags[k])
 	{
-		if (dtst->filedes[0] >= 0)
-		{
-			char *temp;
-			dtst->arg = NULL;
-			temp = calloc(1001, sizeof(char));
-			dtst->cmd = ft_strtrim(dtst->flags[k], " ");
-			read(dtst->filedes[0], temp,1000);//dirty padding of 1000/loop fails 
-			dtst->arg = ft_strdup(temp);
-			close(dtst->filedes[1]);
-			close(dtst->filedes[0]);
-			dtst->filedes[1] = -1;
-			dtst->filedes[0] = -1;
-		}
+	//	if (dtst->filedes[0] >= 0)
+	//	{
+	//		char *temp;
+	//		dtst->arg = NULL;
+	//		temp = calloc(1001, sizeof(char));
+	//		dtst->cmd = ft_strtrim(dtst->flags[k], " ");
+	//		dtst->arg = ft_strdup(temp);
+	//		close(dtst->filedes[1]);
+	//		close(dtst->filedes[0]);
+	//		dtst->filedes[1] = -1;
+	//		dtst->filedes[0] = -1;
+	//	}
 		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);
@@ -58,14 +57,20 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring lol
 		}
 		else if ((dtst->flags[k][0] != '-'
 		&&  dtst->flags[k][0] != '|' && isfile == 0 && dtst->pipe < 0) ||
-		(isquote(dtst->flags[k][0]) && dtst->pipe < 0))
+		(isquote(dtst->flags[k][0])))
 		{
+
+//			if (dtst->filedes[0] >= 0)
+//				if (!ft_strcmp(prevcmd, "echo"))
+//					read(dtst->filedes[0], dtst->arg,1000);//dirty padding of 1000/loop fails 
+//
 			dtst->flags[k] = removequote(dtst->flags[k]);
 			j = k + 1;
 			dtst->arg = ft_strjoin(dtst->arg, " ");
 			dtst->arg = ft_strjoin(dtst->arg, dtst->flags[k]);
 			free(dtst->flags[k]);
 			dtst->flags[k] = NULL;
+
 		}
 		else if (dtst->flags[k][0] == '|')
 		{
@@ -75,11 +80,12 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring lol
 				dtst->arg = ft_dollar(dtst);	//formating data
 			check_error(dtst);
 			cmdfunc(dtst);
-			printf("this is the one I want to see %d, %d\n", dtst->pipe, dtst->filedes[0]);	
+			init(dtst);
+			dtst->cmd = dtst->flags[++k];
 		}
 		++k;
 	}
-	put_command(*dtst);
+	//put_command(*dtst);
 }
 
 int	command_parsing(char *inputcmd, t_data *dtst)

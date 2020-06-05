@@ -23,7 +23,7 @@ char	*dollar_swap(char *inputcmd, t_data *dtst)
 	{
 		split_inputcmd = ft_split(inputcmd, ' ');
 		last = tablen(split_inputcmd);
-		while (split_inputcmd[i] != '\0')
+		while (split_inputcmd[i] != NULL)
 		{
 			if (split_inputcmd[i][0] == '$' && split_inputcmd[i][1] != '\0')
 			{
@@ -34,11 +34,15 @@ char	*dollar_swap(char *inputcmd, t_data *dtst)
 					strjoined = ft_strjoin_space(strjoined, split_inputcmd[i], i - last + 1);
 			}
 			else
-				strjoined = ft_strjoin_space(strjoined, split_inputcmd[i], i - last + 1);
+			{
+				//strjoined = ft_strjoin_space(strjoined, split_inputcmd[i],1);//segfs like crazy//dont get the intent
+				strjoined = ft_strjoin(strjoined, " ");
+				strjoined = ft_strjoin(strjoined, split_inputcmd[i]);
+			}
 			i++;
-				
 		}
 	}
+	//write(1, "this is goign through\n", 15);
 	return (strjoined);
 }
 

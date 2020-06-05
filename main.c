@@ -27,7 +27,7 @@ int	minishell_wrapper(t_data *dtst)
 
 void	error(t_data *dtst, char *error_msg, int errnum)
 {
-	put_command(*dtst);//TO BE DELETED
+	//put_command(*dtst);//TO BE DELETED
 	write(1, dtst->env_shell, ft_strlen(dtst->env_shell));
 	write(1, ": ", 2);
 	if (errnum == 1 || errnum == 3)

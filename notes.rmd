@@ -1,0 +1,23 @@
+---
+author: ELias Lajimi
+output: pdf_document
+---
+
+
+### Notes Pipe behaviours
+```{sh}
+echo Hello World | echo Bye
+echo Hello World >> file1 | echo Bye
+```
+Notes from these two examples: 
+if you have a pipe, in the first instance: the writing end part of the pipe
+is not going to output anything the fd 1  
+
+On the second instance, it will execute the writing end part of the pipe which
+means it's going to create "file1", and write "Hello World" in it, and it will print out 
+the second part to fd 1
+
+```{sh}
+env | echo >> Bye
+```
+In this example, env doesn't get executed, only the second part gets executed.

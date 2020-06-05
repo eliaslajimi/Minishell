@@ -18,16 +18,17 @@ char			*ft_strjoin_space(char *s1, char *s2, int space)
 	int	i;
 
 	i = 0;
+	space < 0 ? space = 0:1;
 	if (!s1 && !s2)
 		return (NULL);
 	if (!(new = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + space + 1))))
 		return (NULL);
-	while (s1 && *s1)
+	while (s1 && *s1 && i < new)
 		new[i++] = *s1++;
-	while (s2 && *s2)
-		new[i++] = *s2++;
-	if (space != 0)
+	if (space != 0 && i < new)
 		new[i++] = ' ';
+	while (s2 && *s2 && i < new)
+		new[i++] = *s2++;
 	new[i] = '\0';
 	return (new);
 }
