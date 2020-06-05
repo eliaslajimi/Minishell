@@ -9,10 +9,12 @@ int	cdfunc(t_data *dtst)
 	temp = ft_strdup(dtst->arg);
 	free(dtst->arg);
 	dtst->arg = NULL;
+	ret = 0;
 	if (dtst->file)
 		printcommand(dtst);
 	dtst->arg = temp;
-	ret = chdir(dtst->arg);
+	if (dtst->pipe < 0)
+		ret = chdir(dtst->arg);
 	if (ret == -1)
 	{
 		error_msg = "No such file or directory";
