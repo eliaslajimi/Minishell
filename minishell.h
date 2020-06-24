@@ -67,6 +67,7 @@ int	creatfile(t_data *dtst, char *file, char *arg);
 int	printcommand(t_data *dtst);
 int	pipe_commands(t_data *dtst);
 char	*dollar_swap(char *inputcmd, t_data *dtst);
+char	*replace_interrodollar(char *itoa_id, char *cmd);
 
 //to be deleted
 int	deleteme();

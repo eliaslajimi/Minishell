@@ -10,56 +10,75 @@ static int	tablen(char **tab)
 	return (i);
 }
 
+static size_t	count_words(char *str, char *word)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (str[++i])
+		if (ft_strnstr(&str[i], word, ft_strlen(str)) == &str[i])
+			count++;
+	return (count);
+}
+
+char		*replace_interrodollar(char *itoa_id, char *cmd)
+{
+	size_t	i;
+	size_t	j;
+	size_t	count;
+	char	*result;
+
+	count = count_words(cmd, "$?");
+	if (!(result = malloc((ft_strlen(cmd) + count * (ft_strlen(itoa_id) - 2)) + 1)))
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (j < ft_strlen(cmd) + count * (ft_strlen(itoa_id) - 2))
+	{
+		if (ft_strncmp(cmd + i, "$?", 2) == 0)
+    		{
+			ft_strcpy(&result[j], itoa_id, ft_strlen(itoa_id));
+			i += 2;
+			j += ft_strlen(itoa_id);
+		}
+		else
+			result[j++] = cmd[i++];
+	}
+	result[j] = '\0';
+	return (result);
+} 
+
 char	*dollar_swap(char *inputcmd, t_data *dtst)
 {
 	int	i = 0;
 	int	last;
-	char	*str;
-	char	*strjoined;
-	char	**split_inputcmd;
-	
-	strjoined = ft_calloc(1,1);
+	char	*s;
+	char	*sj;
+	char	**split_ic;
+
+	sj = ft_calloc(1,1);
 	if (inputcmd != NULL)
 	{
-		split_inputcmd = ft_split(inputcmd, ' ');
-		last = tablen(split_inputcmd);
-		while (split_inputcmd[i] != NULL)
+		split_ic = ft_split(inputcmd, ' ');
+		last = tablen(split_ic);
+		while (split_ic[i] != NULL)
 		{
-			if (split_inputcmd[i][0] == '$' && split_inputcmd[i][1] != '\0')
+			if (split_ic[i][0] == '$' && split_ic[i][1] != '\0' && split_ic)
 			{
-				str = find_node(&dtst->env_lst, split_inputcmd[i] + 1);
-				if (str != NULL)
-					strjoined = ft_strjoin_space(strjoined, str + ft_strlen(split_inputcmd[i]), i - last + 1);
+				s = find_node(&dtst->env_lst, split_ic[i] + 1);
+				if (s != NULL)
+					sj = ft_strjoins(sj, s + ft_strlen(split_ic[i]), i - last + 1);
 				else
-					strjoined = ft_strjoin_space(strjoined, split_inputcmd[i], i - last + 1);
+					sj = ft_strjoins(sj, split_ic[i], i - last + 1);
 			}
 			else
-			{
-				//strjoined = ft_strjoin_space(strjoined, split_inputcmd[i],1);//segfs like crazy//dont get the intent
-				strjoined = ft_strjoin(strjoined, " ");
-				strjoined = ft_strjoin(strjoined, split_inputcmd[i]);
-			}
+				sj = ft_strjoins(sj, split_ic[i], 1);
 			i++;
 		}
 	}
-	//write(1, "this is goign through\n", 15);
-	return (strjoined);
-}
-
-char	*find_node(t_list **lst, char *data)
-{
-	t_list	*iter;
-
-	iter = *lst;
-	while (iter)
-	{
-		if (ft_strncmp(iter->content, data, ft_strlen(data)) == 0)
-			return (iter->content);
-		else if (iter->next == NULL)
-			break;
-		iter = iter->next;
-	}
-	return (NULL);
+	return (sj);
 }
 
 char	*ft_dollar(t_data *dtst)

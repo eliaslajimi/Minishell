@@ -11,11 +11,16 @@ int	minishell_wrapper(t_data *dtst)
 	inputcmd = NULL;
 	write(1, "$> ", 3);
 	get_next_line(1, &inputcmd);
-	tmp = dollar_swap(inputcmd, dtst);
+
+	tmp = replace_interrodollar(ft_itoa(dtst->interrodollar), inputcmd);
 	ft_strdel(&inputcmd);
 	inputcmd = ft_strdup(tmp);
 	ft_strdel(&tmp);
 
+	tmp = dollar_swap(inputcmd, dtst);
+	ft_strdel(&inputcmd);
+	inputcmd = ft_strdup(tmp);
+	ft_strdel(&tmp);
 
 	if ((inputcmd = ft_strtrim(inputcmd, " "))
 	&& !ft_strcmp(inputcmd, ""))
@@ -70,11 +75,15 @@ void	sigint_handler()
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 1)
-		ft_putstr(argv[0]);
+	if (argc != 1 || argv[1] != '\0')
+	{
+		ft_putendl_fd("The program doesn't need any arguments", 2);
+		return (1);
+	}
 	t_data	dtst;
 	dtst.env_lst = get_env_var(envp);
-	dtst.env_shell = find_node(&dtst.env_lst, "SHELL") + 6;	
+	dtst.env_shell = find_node(&dtst.env_lst, "SHELL") + 6;
+	dtst.interrodollar = 0;
 	signal(SIGINT, sigint_handler);
 	minishell_wrapper(&dtst);
 	return (0);
