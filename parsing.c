@@ -27,19 +27,19 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring
 	isfile = 0;
 	while (dtst->flags[k])
 	{
-	//	if (dtst->filedes[0] >= 0)
-	//	{
-	//		char *temp;
-	//		dtst->arg = NULL;
-	//		temp = calloc(1001, sizeof(char));
-	//		dtst->cmd = ft_strtrim(dtst->flags[k], " ");
-	//		dtst->arg = ft_strdup(temp);
-	//		close(dtst->filedes[1]);
-	//		close(dtst->filedes[0]);
-	//		dtst->filedes[1] = -1;
-	//		dtst->filedes[0] = -1;
-	//	}
-		if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
+		if (dtst->flags[k][0] == '|')
+		{
+			dtst->pipe = 1;
+			dtst->flags[k] = NULL;
+			dtst->arg = ft_strtrim(dtst->arg, " ");	//formating data
+			if (ft_intheset('$', dtst->arg))	//formating data
+				dtst->arg = ft_dollar(dtst);	//formating data
+			check_error(dtst);
+			cmdfunc(dtst);
+			init(dtst);
+			dtst->cmd = dtst->flags[++k];
+		}
+		else if (dtst->flags[k][0] == '<' || dtst->flags[k][0] == '>')
 		{
 			get_direc(dtst, k);
 			dtst->flags[k] = NULL;
@@ -47,7 +47,7 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring
 		}
 		else if (isfile == 1)
 		{
-			dtst->file = realloc(dtst->file, sizeof(dtst->file) + 1 +
+			dtst->file = realloc(dtst->file, sizeof(dtst->file) + 1 +//USE OF REALLOC!!!!
 			sizeof(dtst->flags[k]));
 			dtst->file = ft_strjoin(dtst->file, " ");
 			dtst->file = ft_strjoin(dtst->file, dtst->flags[k]);
@@ -60,10 +60,6 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring
 		(isquote(dtst->flags[k][0])))
 		{
 
-//			if (dtst->filedes[0] >= 0)
-//				if (!ft_strcmp(prevcmd, "echo"))
-//					read(dtst->filedes[0], dtst->arg,1000);//dirty padding of 1000/loop fails 
-//
 			dtst->flags[k] = removequote(dtst->flags[k]);
 			j = k + 1;
 			dtst->arg = ft_strjoin(dtst->arg, " ");
@@ -72,20 +68,8 @@ void	retrieve_from_flags(t_data *dtst)//Needs some serious refactoring
 			dtst->flags[k] = NULL;
 
 		}
-		else if (dtst->flags[k][0] == '|')
-		{
-			dtst->pipe = 1;
-			dtst->arg = ft_strtrim(dtst->arg, " ");	//formating data
-			if (ft_intheset('$', dtst->arg))	//formating data
-				dtst->arg = ft_dollar(dtst);	//formating data
-			check_error(dtst);
-			cmdfunc(dtst);
-			init(dtst);
-			dtst->cmd = dtst->flags[++k];
-		}
 		++k;
 	}
-	//put_command(*dtst);
 }
 
 int	command_parsing(char *inputcmd, t_data *dtst)

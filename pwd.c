@@ -10,6 +10,7 @@ int	pwdfunc(t_data *dtst)
 	buf = NULL;
 	size = 1000;
 	free(dtst->arg);
+//	put_command(*dtst);
 	currentdir = getcwd(buf, size);
 	dtst->arg = currentdir;
 	dtst->arg = ft_strjoin(dtst->arg, "\n");
