@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:26:34 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/09/28 17:34:30 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/09/28 17:45:14 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	init_struct(t_data d)
 	d.nb_cmd = 1;
 }
 
+/*
+ *Check if a specific character is inside a set.
+ */
 int		ft_isin(int c, char *set)
 {
 	while (set && *set)

@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:18:59 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/09/28 17:34:17 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/09/28 17:44:34 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	myparser(char *line, t_data d)
 {
 	char	***tmp;
 	char	***cmd_grid;
-	
+
+/*
+ * Pas besoin de realloc le ***cmd_grid vu quil est directement init a la bonne taille
+ */	
 	if ((d.nb_cmd = how_many_cmd(line)) == 0)
 	{
-		printf("Aucune commande valide rentree\n");
+		printf("Il y a une commande invalide.\n"); //si il n'y a rien entre deux ; ;, ou que la commande commence avec un ;. Si elle finit par ;, cést pas grave.
 		return ;
 	}
 	else
@@ -27,7 +30,9 @@ void	myparser(char *line, t_data d)
 		cmd_grid = malloc(sizeof(char ***) * (d.nb_cmd + 1));
 		cmd_grid[d.nb_cmd] = NULL;
 	}
-
+/*
+ * TO DELETE, juste pour voir si ca marche comme voulu.
+ */
 	int i = 0;
 	while (cmd_grid[i] != NULL)
 	{
@@ -42,14 +47,8 @@ void	myparser(char *line, t_data d)
 		printf("its working ! %s\n", cmd_grid[i][0]);
 		i++;
 	}
-	/*
-	while (line[i] != '\0')
-	{
-		word = pickword(line, d);
-		putword_in_grid(word, cmd_grid, d);
-		i += ft_strlen(word);
-	}
-	*/
+	//
+	//
 }
 
 int main(int argc, char **argv)
