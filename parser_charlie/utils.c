@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:26:34 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/09/28 17:45:14 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:54:26 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ void	init_struct(t_data d)
 {
 	d.i = 0;
 	d.j = 0;
+	d.cmd = 0;
 	d.nb_cmd = 1;
+	d.word = 0;
+	d.token = 0;
+	d.check_between = 0;
 }
 
 /*
@@ -37,7 +41,9 @@ int		skip_spaces(char *line)
 {
 	int	i = 0;
 	while (ft_isin(line[i], " \t\n\r\v\f"))
+	{
 		i++;
+	}
 	return (i);
 }
 
@@ -102,4 +108,26 @@ int		how_many_cmd(char *line)
 	if (check_in_between(last_semic, i, line) == 1)
 		nb_cmd++;
 	return (nb_cmd);
+}
+
+/*
+ * realloc avec un espace vide de plus que avant, copie tout le precedent, null-terminated
+ */
+char		**expansetab(char **tab, int previouslen)
+{
+	int		i;
+	char	**cpy;
+
+	i = 0;
+	cpy = ft_calloc(sizeof(char *), (previouslen + 1 + 1));
+	cpy[previouslen + 1] = NULL;
+	while (i < previouslen)
+	{
+		cpy[i] = ft_strdup(tab[i]);
+		ft_strdel(&tab[i]);
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+	return (cpy);
 }
