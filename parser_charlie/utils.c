@@ -6,21 +6,21 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:26:34 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/09/30 12:54:26 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/05 13:44:37 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	init_struct(t_data d)
+void	init_struct(t_data *d)
 {
-	d.i = 0;
-	d.j = 0;
-	d.cmd = 0;
-	d.nb_cmd = 1;
-	d.word = 0;
-	d.token = 0;
-	d.check_between = 0;
+	d->i = 0;
+	d->j = 0;
+	d->cmd = 0;
+	d->nb_cmd = 1;
+	d->word = 0;
+	d->token = 0;
+	d->check_between = 0;
 }
 
 /*
