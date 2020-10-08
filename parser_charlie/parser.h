@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:20:37 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/10/05 15:27:24 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/08 18:49:06 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ int		check_in_between(int start, int end, char *line);
 int		how_many_cmd(char *line);
 int		skip_quote(char *line, char quote, int i);
 char	**expansetab(char **tab, int previouslen);
+void	free_parser(t_data *d);
 void	dollar_token(char *line, t_data *d);
 void	pipe_token(char *line, t_data *d);
 void	semic_token(char *line, t_data *d);
 void	word_token(char *line, t_data *d);
 void	redirec_token(char *line, t_data *d);
+void	quote_token(char *line, t_data *d);
+
 
 #endif

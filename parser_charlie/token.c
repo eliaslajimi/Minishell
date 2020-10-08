@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:50:32 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/10/05 15:31:25 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/08 18:25:23 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,26 @@ void		redirec_token(char *line, t_data *d)
 		if (line[1] == '<')
 		{
 			d->token = 8;
-			d->index++;
+			d->index += 2;
 		}
 		else
 		{
 			d->token = 9;
 			d->index++;
 		}
+	}
+}
+
+void	quote_token(char *line, t_data *d)
+{
+	if (line[0] == '\'')
+	{
+		d->token = 10;
+		d->index++;
+	}
+	else if (line[0] == '\"')
+	{
+		d->token = 10;
+		d->index++;
 	}
 }

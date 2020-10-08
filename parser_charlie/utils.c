@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:26:34 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/10/05 13:44:37 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/08 18:59:39 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,6 @@ int		check_in_between(int start, int end, char *line)
 	return (0);
 }
 
-/*
- * On avance jusqua la quote suivante sans regarder ce quil y a entre
- */
-
 int		skip_quote(char *line, char quote, int i)
 {
 	int skip = i + 1;
@@ -113,6 +109,7 @@ int		how_many_cmd(char *line)
 /*
  * realloc avec un espace vide de plus que avant, copie tout le precedent, null-terminated
  */
+
 char		**expansetab(char **tab, int previouslen)
 {
 	int		i;
@@ -130,4 +127,32 @@ char		**expansetab(char **tab, int previouslen)
 	free(tab);
 	tab = NULL;
 	return (cpy);
+}
+
+void		free_parser(t_data *d)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	printf("\nFREEDOOOOOM\n");
+	while (d->cmd_grid[i] != NULL)
+	{
+		j = 0;
+		while (d->cmd_grid[i][j] != NULL)
+		{
+			printf("free grid [%d][%d]\n", i, j);
+			free(d->cmd_grid[i][j]);
+			d->cmd_grid[i][j] = NULL;
+			j++;
+		}
+		printf("free grid [%d]\n", i);
+		free(d->cmd_grid[i]);
+		d->cmd_grid[i] = NULL;
+
+		i++;
+	}
+	printf("free grid\n");
+	free(d->cmd_grid);
+	d->cmd_grid = NULL;
 }
