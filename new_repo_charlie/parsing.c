@@ -6,7 +6,7 @@
 /*   By: cmcgahan <cmcgahan@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 14:43:54 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/10/12 16:48:31 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/13 13:52:38 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,62 +16,63 @@ static void	ft_strdup_token(t_parser *p)
 {
 	if (p->token == 1)
 	{
-		printf("adding dollar token at	[%d][%d]\n",p->cmd, p->word);
+		printf("adding dollar token		at [%d][%d]\n",p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup("$?");
 	}
 	else if (p->token == 2)
 	{
-		printf("adding dollar token at	[%d][%d]\n",p->cmd, p->word);
+		printf("adding dollar token		at [%d][%d]\n",p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup(p->tok_word);
 		ft_strdel(&p->tok_word);
 	}
 	else if (p->token == 3)
 	{
-		printf("adding dollar token at	[%d][%d]\n",p->cmd, p->word);
+		printf("adding dollar token		at [%d][%d]\n",p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup("$");
 	}
 	else if (p->token == 4)
 	{
-		printf("adding pipe token at	[%d][%d]\n", p->cmd, p->word);
+		printf("adding pipe token		at [%d][%d]\n", p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup("|");
 	}
 	else if (p->token == 5)
 	{
-		printf("adding word token at	[%d][%d]\n", p->cmd, p->word);
+		printf("adding word token		at [%d][%d]\n", p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup(p->tok_word);
 		ft_strdel(&p->tok_word);
 	}
 	else if (p->token == 6)
 	{
-		printf("adding redirec token at	[%d][%d]\n", p->cmd, p->word);
+		printf("adding redirec token		at	[%d][%d]\n", p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup(">>");
 	}
 	else if (p->token == 7)
 	{
-		printf("adding redirec token at	[%d][%d]\n", p->cmd, p->word);
+		printf("adding redirec token		at [%d][%d]\n", p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup(">");
 	}
 	else if (p->token == 8)
 	{
-		printf("adding redirec token at	[%d][%d]\n", p->cmd, p->word);
+		printf("adding redirec token		at [%d][%d]\n", p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup("<<");
 	}
 	else if (p->token == 9)
 	{
-		printf("adding redirec token at	[%d][%d]\n", p->cmd, p->word);
+		printf("adding redirec token		at [%d][%d]\n", p->cmd, p->word);
 		p->cmd_grid[p->cmd][p->word] = ft_strdup("<");
 	}
 	else if (p->token == 10)
 	{
-		printf("adding redirec token at	[%d][%d]\n", p->cmd, p->word);
-		p->cmd_grid[p->cmd][p->word] = ft_strdup("\"");
+		printf("adding quoted word token		at [%d][%d]\n", p->cmd, p->word);
+		p->cmd_grid[p->cmd][p->word] = ft_strdup(p->tok_word);
+		ft_strdel(&p->tok_word);
 	}
 	else if (p->token == -1)
 		return ;
 	p->word++;
 }
 
-static void	check_token(char *line, t_parser *p)
+static int	check_token(char *line, t_parser *p)
 {
 	if (*line == '$')
 		dollar_token(line, p);
@@ -86,8 +87,13 @@ static void	check_token(char *line, t_parser *p)
 		redirec_token(line, p);
 	else if (ft_isalpha(*line) == 1)
 		word_token(line, p);
-	else if (*line == 34 || *line == 39)
+	else if (*line == 34 || *line == 39) //quotes
 		quote_token(line, p);
+//	else if (*line == 46 || 47) //dots and slashes
+//		dslash_token(line, p);
+	else
+		p->token = -1;
+	return (p->token);
 }
 
 static void	parse_line(char *line, t_parser *p)
@@ -98,7 +104,8 @@ static void	parse_line(char *line, t_parser *p)
 		p->index += skip_spaces(line + p->index);
 		if (line[p->index] != '\0')
 		{
-				check_token(line + p->index, p);
+				if (check_token(line + p->index, p) == -1) //A TRAITER : si ca renvoie -1, c'est par ex pour problemes de matching quotes et on quitte tout
+					return ;
 				p->cmd_grid[p->cmd] = expansetab(p->cmd_grid[p->cmd], p->word);
 				ft_strdup_token(p);
 		}

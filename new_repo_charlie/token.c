@@ -6,7 +6,7 @@
 /*   By: cmcgahan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 12:50:32 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/10/12 14:34:28 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/13 13:51:33 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,33 @@ void		redirec_token(char *line, t_parser *p)
 
 void	quote_token(char *line, t_parser *p)
 {
-	if (line[0] == '\'')
+
+	int		skip;
+
+	skip = skip_quote(line, line[0], 0);
+	if (skip == 0)
 	{
-		p->token = 10;
-		p->index++;
+		p->token = -1;
+		return ; //no matching quote
 	}
-	else if (line[0] == '\"')
+	p->token = 10;
+	p->tok_word = ft_strndup(line, skip + 2); //on met les quotes avec pour pouvoir différencier d'une commande
+	p->index = p->index + skip + 2;
+}
+
+/*
+*Not completed at all
+*/
+
+void	dslash_token(char *line, t_parser *p)
+{
+	int i;
+	int	nbdots;
+
+	i = 0;
+	nbdots = 0;
+	while (line[i] && (line[i] == 46 || line[i] == 47))
 	{
-		p->token = 10;
-		p->index++;
+		i++;
 	}
 }

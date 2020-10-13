@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmcgahan <cmcgahan@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/13 13:39:49 by cmcgahan          #+#    #+#             */
+/*   Updated: 2020/10/13 13:42:59 by cmcgahan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	cdfunc(t_data *dtst)
@@ -17,7 +29,7 @@ int	cdfunc(t_data *dtst)
 		ret = chdir(dtst->arg);
 	if (ret == -1)
 	{
-		error_msg = "No such file or directory";
+		error_msg = "No such file or directory.\n";
 		error(dtst, error_msg, 3);
 	}
 	return (0);

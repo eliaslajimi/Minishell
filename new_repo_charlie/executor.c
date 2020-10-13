@@ -6,7 +6,7 @@
 /*   By: cmcgahan <cmcgahan@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 16:01:50 by cmcgahan          #+#    #+#             */
-/*   Updated: 2020/10/12 16:51:13 by cmcgahan         ###   ########.fr       */
+/*   Updated: 2020/10/13 13:06:42 by cmcgahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	exec_cmd(t_data *d, char *cmd)
 		d->interrodollar = cdfunc(d);
 	else if (!ft_strcmp(cmd,"pwd"))
 	{
-		printf("pwd func\n");
 		d->interrodollar = pwdfunc(d);
 	}
 	else if (!ft_strcmp(cmd,"export"))
@@ -36,7 +35,6 @@ static int	exec_cmd(t_data *d, char *cmd)
 		absolute_path(d, cmd);
 		fork_cmd(d);
 	}
-	printf("safely exits\n");
 	return (0);
 }
 
@@ -44,11 +42,9 @@ int		executor(t_data *d)
 {
 	while (d->p.cmd_grid[d->p.i] != NULL)
 	{
-		printf("	%d		- eme command\n", d->p.i);
 		d->p.j = 0;
 		while (d->p.cmd_grid[d->p.i][d->p.j] != NULL)
 		{
-			printf("	%d - %d		- eme command\n", d->p.i , d->p.j);
 			exec_cmd(d, d->p.cmd_grid[d->p.i][d->p.j]);
 			d->p.j++;
 		}
